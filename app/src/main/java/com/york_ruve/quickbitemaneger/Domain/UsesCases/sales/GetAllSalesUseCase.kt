@@ -1,0 +1,11 @@
+package com.york_ruve.quickbitemaneger.Domain.UsesCases.sales
+
+import com.york_ruve.quickbitemaneger.Domain.Model.Sales
+import com.york_ruve.quickbitemaneger.Domain.Repository.ISaleRepository
+import javax.inject.Inject
+
+class GetAllSalesUseCase @Inject constructor(private val saleRepository: ISaleRepository) {
+    suspend operator fun invoke(): List<Sales> {
+        return saleRepository.getAllSales()
+    }
+}

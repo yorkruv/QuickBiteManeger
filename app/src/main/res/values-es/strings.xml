@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="slogan">Simplifica tu gestión, potencia tu negocio</string>
+    <string name="application_logo">logo de la aplicacion</string>
+    <string name="nav_home">Inicio</string>
+    <string name="nav_orders">Ordenes</string>
+    <string name="nav_inventory">Inventario</string>
+    <string name="nav_sales">Ventas</string>
+    <string name="nav_clients">Clientes</string>
+    <string name="nav_menu">Menu</string>
+    <string name="active_orders">Ordenes activas</string>
+    <string name="sales_day">Ventas del dia</string>
+    <string name="inv_critical">Inventario critico</string>
+    <string name="ing_low">Productos con inventario bajo</string>
+    <string name="quick_access">Acceso Rápido</string>
+    <string name="day">Dia</string>
+    <string name="month">Mes</string>
+    <string name="year">Año</string>
+
+    <string-array name="rango_de_ventas">
+        <item>@string/day</item>
+        <item>@string/month</item>
+        <item>@string/year</item>
+    </string-array>
+</resources>

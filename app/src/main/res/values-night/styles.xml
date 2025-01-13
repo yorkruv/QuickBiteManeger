@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.QuickBiteManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryDark">@color/white</item>
+
+    </style>
+
+    <style name="ThemeButtom" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/secondNight</item>
+        <item name="backgroundTint">@color/grey</item>
+        <item name="iconTint">@color/secondNight</item>
+    </style>
+
+    <style name="ic_color" >
+        <item name="android:tint">@color/secondNight</item>
+    </style>
+</resources>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name" translatable="false">QuickBite Manager</string>
+    <string name="slogan">Simplify your management, boost your business</string>
+    <string name="application_logo">application logo</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_orders">Orders</string>
+    <string name="nav_inventory">Inventory</string>
+    <string name="nav_sales">Sales</string>
+    <string name="nav_clients">Clients</string>
+    <string name="nav_menu">Menu</string>
+    <string name="DashBoard" translatable="false">DashBoard</string>
+    <string name="active_orders">Active orders</string>
+    <string name="sales_day">Sales of the day</string>
+    <string name="inv_critical">Critical inventory</string>
+    <string name="ing_low">Products with low inventory</string>
+    <string name="quick_access">Quick Access</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+
+    <string-array name="rango_de_ventas">
+        <item>@string/day</item>
+        <item>@string/month</item>
+        <item>@string/year</item>
+    </string-array>
+</resources>
