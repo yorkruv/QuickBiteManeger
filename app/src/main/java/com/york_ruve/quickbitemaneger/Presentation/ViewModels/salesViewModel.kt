@@ -143,6 +143,8 @@ class salesViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val salesByDay = getSalesByDayUseCase()
             val localDate = LocalDate.now()
+            _salesToDay.postValue(0)
+
             for (sales in salesByDay) {
                 if (sales.saleDate == localDate.toString()) {
                     _salesToDay.postValue(sales.totalTransactions)
