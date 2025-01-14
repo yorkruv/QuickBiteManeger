@@ -37,7 +37,7 @@ interface salesDao {
             COUNT(*) AS totalTransactions
         FROM sales
         GROUP BY saleDate
-        ORDER BY saleDate DESC
+        ORDER BY saleDate ASC
     """)
     fun getSalesByDay(): List<SalesByDay>
 
@@ -48,7 +48,7 @@ interface salesDao {
             COUNT(*) AS totalTransactions
         FROM sales
         GROUP BY saleMonth
-        ORDER BY saleMonth DESC
+        ORDER BY saleMonth ASC
     """)
     fun getSalesGroupedByMonth(): List<SalesByMonth>
 
@@ -59,7 +59,7 @@ interface salesDao {
             COUNT(*) AS totalTransactions
         FROM sales
         GROUP BY saleYear
-        ORDER BY saleYear DESC
+        ORDER BY saleYear ASC
     """)
     fun getSalesGroupedByYear(): List<SalesByYear>
 

@@ -7,9 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -21,6 +24,8 @@ import com.york_ruve.quickbitemaneger.Presentation.utils.DateAxisFormatter
 import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.FragmentDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -41,14 +46,14 @@ class dashBoardFragment : Fragment() {
         viewObservers()
         setListeners()
         prueba()
-        Log.d("Fechas", salesViewModel.salesDates.value.toString())
+
     }
 
     private fun prueba() {
-        val time = System.currentTimeMillis() / 1000
-        val venta = Sales(1, 1, 1, 1705077600000, 1.0)
-        val venta2 = Sales(2, 2, 1, 6786, 1575764.0)
-        val venta3 = Sales(3, 3, 1, 8765, 10000.0)
+        val time = System.currentTimeMillis()
+        val venta = Sales(1, 1, 1, 1736750119000, 5787.0)
+        val venta2 = Sales(2, 2, 1, 1673726514000, 1575764.0)
+        val venta3 = Sales(3, 3, 1, fecha = 1705262514000, 10000.0)
         salesViewModel.addSale(venta)
         salesViewModel.addSale(venta2)
         salesViewModel.addSale(venta3)
@@ -56,37 +61,55 @@ class dashBoardFragment : Fragment() {
     }
 
     private fun setListeners() {
+        binding.spRangoVentas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                GlobalScope
+                salesViewModel.getSalesDates(position)
 
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
     }
 
 
     private fun viewObservers() {
         salesViewModel.lineChartData.observe(viewLifecycleOwner) {
-            val dataSet = LineDataSet(it, "Ventas por día").apply {
+            val dataSet = LineDataSet(it, "").apply {
                 if (isNightMode()) {
-                    color = R.color.white
-                    valueTextColor = R.color.white
+                    color = Color.WHITE
+                    valueTextColor = Color.WHITE
                     lineWidth = 2f
                     circleRadius = 4f
-                    setCircleColor(R.color.white)
-                }else{
-                    color = R.color.black
-                    valueTextColor = R.color.black
+                    setCircleColor(Color.WHITE)
+                } else {
+                    color = Color.BLACK
+                    valueTextColor = Color.BLACK
                     lineWidth = 2f
                     circleRadius = 4f
-                    setCircleColor(R.color.black)
+                    setCircleColor(Color.BLACK)
                 }
+                form = Legend.LegendForm.NONE
             }
             val lineData = LineData(dataSet)
             binding.lineChart.apply {
                 data = lineData
-                description.text = "Ventas diarias"
                 setDrawGridBackground(false)
                 xAxis.position = XAxis.XAxisPosition.BOTTOM
                 xAxis.granularity = 1f
                 xAxis.valueFormatter = DateAxisFormatter(
                     salesViewModel.salesDates.value ?: emptyList()
                 ) // Etiquetas de fechas
+                xAxis.textColor = if (isNightMode()) Color.WHITE else Color.BLACK
+                axisLeft.textColor = if (isNightMode()) Color.WHITE else Color.BLACK
                 axisRight.isEnabled = false
                 invalidate() // Refresca el gráfico
             }
@@ -95,6 +118,9 @@ class dashBoardFragment : Fragment() {
             val orderstx = getString(R.string.nav_orders)
             binding.tvTotalSales.text = "$${it.totalSalesAmount} "
             binding.tvTotalOrders.text = "${it.totalSalesCount} ${orderstx}"
+        }
+        salesViewModel.salesToDay.observe(viewLifecycleOwner) {
+            binding.tvNumberSalesDay.text = "$it"
         }
     }
 
