@@ -3,7 +3,6 @@ package com.york_ruve.quickbitemaneger.Presentation.Views
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,21 +10,16 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.york_ruve.quickbitemaneger.Domain.Model.Sales
-import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
-import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.salesViewModel
 import com.york_ruve.quickbitemaneger.Presentation.utils.DateAxisFormatter
 import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.FragmentDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -35,7 +29,7 @@ class dashBoardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDashBoardBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -68,7 +62,6 @@ class dashBoardFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                GlobalScope
                 salesViewModel.getSalesDates(position)
 
             }
@@ -135,7 +128,7 @@ class dashBoardFragment : Fragment() {
         }
     }
 
-    fun isNightMode(): Boolean {
+    private fun isNightMode(): Boolean {
         return when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
             Configuration.UI_MODE_NIGHT_YES -> true
             Configuration.UI_MODE_NIGHT_NO -> false

@@ -1,13 +1,10 @@
 package com.york_ruve.quickbitemaneger.Presentation.ViewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.Entry
-import com.york_ruve.quickbitemaneger.Data.Filter.SalesByDay
 import com.york_ruve.quickbitemaneger.Data.Filter.TotalSalesData
 import com.york_ruve.quickbitemaneger.Domain.Model.Sales
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.sales.GetAllSalesUseCase
@@ -21,9 +18,7 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.sales.updateSalesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.LocalDate
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -120,7 +115,7 @@ class salesViewModel @Inject constructor(
 
     fun getSalesDates(posision: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            var salesDates: List<String>
+            val salesDates: List<String>
             when (posision) {
                 0 -> {salesDates = getSalesByDayUseCase().map { it.saleDate }
                 getSalesByDay()}
