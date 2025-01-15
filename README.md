@@ -46,7 +46,10 @@ Próximos pasos:
 ---
 
 ## 🎨 **Vista Previa (en desarrollo)**  
-*Inserta aquí capturas de pantalla o GIFs de tu aplicación mientras avanzas.*  
+
+![Dashboard](https://github.com/user-attachments/assets/0decae6f-9d22-4802-8641-92f033ff0232)
+
+
 
 ---
 
