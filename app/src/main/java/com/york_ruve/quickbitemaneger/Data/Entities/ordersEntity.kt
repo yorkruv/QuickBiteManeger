@@ -1,8 +1,6 @@
 package com.york_ruve.quickbitemaneger.Data.Entities
 
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Orders")

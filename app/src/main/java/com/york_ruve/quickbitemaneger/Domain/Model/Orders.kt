@@ -1,7 +1,5 @@
 package com.york_ruve.quickbitemaneger.Domain.Model
 
-import com.york_ruve.quickbitemaneger.Data.Entities.dishEntity
-
 data class Orders(
     val id: Int? = null,
     val fecha: String,

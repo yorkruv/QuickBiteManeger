@@ -1,7 +1,6 @@
 package com.york_ruve.quickbitemaneger.Data.Entities
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(

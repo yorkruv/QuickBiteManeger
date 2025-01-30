@@ -1,6 +1,5 @@
 package com.york_ruve.quickbitemaneger.Domain.Repository
 
-import com.york_ruve.quickbitemaneger.Data.Entities.dishEntity
 import com.york_ruve.quickbitemaneger.Data.Relations.DishWithIngredients
 import com.york_ruve.quickbitemaneger.Domain.Model.Dish
 
