@@ -37,7 +37,7 @@
                     android:id="@+id/tv_active_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/active_orders"
+                    android:text="@string/pending_orders"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +53,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_number_active_orders"
+                    android:id="@+id/tv_number_Pending_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"

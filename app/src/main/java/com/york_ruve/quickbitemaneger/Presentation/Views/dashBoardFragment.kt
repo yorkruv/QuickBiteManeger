@@ -3,6 +3,7 @@ package com.york_ruve.quickbitemaneger.Presentation.Views
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,14 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.york_ruve.quickbitemaneger.Domain.Model.Sales
+import com.york_ruve.quickbitemaneger.Data.Entities.DishIngredient
+import com.york_ruve.quickbitemaneger.Data.Entities.OrdersDish
+import com.york_ruve.quickbitemaneger.Domain.Model.Dish
+import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
+import com.york_ruve.quickbitemaneger.Domain.Model.Orders
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.salesViewModel
 import com.york_ruve.quickbitemaneger.Presentation.utils.DateAxisFormatter
 import com.york_ruve.quickbitemaneger.R
@@ -25,6 +33,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class dashBoardFragment : Fragment() {
     private val salesViewModel: salesViewModel by viewModels()
+    private val ordersViewModel: ordersViewModel by viewModels()
+    private val dishViewModel: dishViewModel by viewModels()
+    private val ingredientViewModel: ingredientViewModel by viewModels()
     private lateinit var binding: FragmentDashBoardBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,13 +55,18 @@ class dashBoardFragment : Fragment() {
     }
 
     private fun prueba() {
-        val time = System.currentTimeMillis()
-        val venta = Sales(1, 1, 1, 1736750119000, 5787.0)
-        val venta2 = Sales(2, 2, 1, 1673726514000, 1575764.0)
-        val venta3 = Sales(3, 3, 1, fecha = 1705262514000, 10000.0)
-        salesViewModel.addSale(venta)
-        salesViewModel.addSale(venta2)
-        salesViewModel.addSale(venta3)
+
+        ordersViewModel.orderDish.observe(viewLifecycleOwner) {
+            Log.d("TAG", "prueba: $it")
+        }
+
+        dishViewModel.getAllDishesWithIngredients()
+        dishViewModel.dishIngredient.observe(viewLifecycleOwner) {
+            Log.d("dishIngredients", "$it")
+        }
+        ordersViewModel.getOrdersByState("Pendiente")
+        ingredientViewModel.getAllIngredients()
+
 
     }
 
@@ -69,6 +85,9 @@ class dashBoardFragment : Fragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
+
+        }
+        binding.btnOrders.setOnClickListener() {
 
         }
     }
@@ -114,6 +133,28 @@ class dashBoardFragment : Fragment() {
         }
         salesViewModel.salesToDay.observe(viewLifecycleOwner) {
             binding.tvNumberSalesDay.text = "$it"
+        }
+        ordersViewModel.ordersPending.observe(viewLifecycleOwner) {
+            binding.tvNumberPendingOrders.text = "$it"
+        }
+        ingredientViewModel.ingredientsCriticals.observe(viewLifecycleOwner) {
+            binding.tvNumberInvCritical.text = "$it"
+        }
+        dishViewModel.IngredientsByDishId.observe(viewLifecycleOwner) { dishWithIngredients ->
+            if (dishWithIngredients != null) {
+                android.util.Log.d("dishIngredients", "$dishWithIngredients")
+                val ingredientList = dishWithIngredients.ingredients.map { it.ingredientId }
+                ingredientViewModel.getDishIngredientsById(dishWithIngredients.dish.dishId,ingredientList)
+            }
+        }
+        ingredientViewModel.dishIngredients.observe(viewLifecycleOwner){dishIngredientsList ->
+            dishIngredientsList.forEach{dishIngredient ->
+                Log.d("dishWithQuantity", "$dishIngredient")
+                val quantity = dishIngredient.quantity
+                Log.d("Ingrediente ${dishIngredient.ingredientId}", "Cantidad: $quantity")
+
+                ingredientViewModel.SubstractIngredientStock(dishIngredient.ingredientId, quantity)
+            }
         }
     }
 

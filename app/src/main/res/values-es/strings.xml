@@ -8,7 +8,7 @@
     <string name="nav_sales">Ventas</string>
     <string name="nav_clients">Clientes</string>
     <string name="nav_menu">Menu</string>
-    <string name="active_orders">Ordenes activas</string>
+    <string name="pending_orders">Ordenes pendientes</string>
     <string name="sales_day">Ventas del dia</string>
     <string name="inv_critical">Inventario critico</string>
     <string name="ing_low">Productos con inventario bajo</string>

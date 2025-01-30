@@ -9,7 +9,7 @@
     <string name="nav_clients">Clients</string>
     <string name="nav_menu">Menu</string>
     <string name="DashBoard" translatable="false">DashBoard</string>
-    <string name="active_orders">Active orders</string>
+    <string name="pending_orders">Pending orders</string>
     <string name="sales_day">Sales of the day</string>
     <string name="inv_critical">Critical inventory</string>
     <string name="ing_low">Products with low inventory</string>

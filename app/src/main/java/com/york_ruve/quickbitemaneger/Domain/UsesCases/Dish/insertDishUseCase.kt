@@ -4,8 +4,8 @@ import com.york_ruve.quickbitemaneger.Domain.Model.Dish
 import com.york_ruve.quickbitemaneger.Domain.Repository.IDishesRepository
 import javax.inject.Inject
 
-class getAllDishesUseCase @Inject constructor(private val dishRepository:IDishesRepository) {
-    operator suspend fun invoke():List<Dish>{
-        return dishRepository.getAllDishes()
+class insertDishUseCase @Inject constructor(private val dishRepository: IDishesRepository) {
+    suspend operator fun invoke(dish:Dish){
+        dishRepository.insertDish(dish)
     }
 }

@@ -2,21 +2,28 @@ package com.york_ruve.quickbitemaneger.Data.Repository
 
 import com.york_ruve.quickbitemaneger.Data.Dao.ordersDao
 import com.york_ruve.quickbitemaneger.Data.Entities.ordersEntity
+import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
 import com.york_ruve.quickbitemaneger.Domain.Model.Orders
 import com.york_ruve.quickbitemaneger.Domain.Repository.IOrdersRepository
+import javax.inject.Inject
 
-class ordersRepository(private val ordersDao: ordersDao) : IOrdersRepository {
+class ordersRepository @Inject constructor(private val ordersDao: ordersDao) : IOrdersRepository {
     override suspend fun getAllOrders(): List<Orders> {
         return ordersDao.getAllOrders().map {
-            Orders(it.id,it.fecha,it.id_cliente,it.estado,it.total)
+            Orders(it.orderId,it.fecha,it.id_cliente,it.estado,it.total)
         }
+    }
+
+    override suspend fun getOrdersWithDishes(): List<orderWithDishes> {
+        return ordersDao.getAllOrdersWithDishes()
     }
 
     override suspend fun getOrdersByState(state: String): List<Orders> {
         return ordersDao.getOrdersByState(state).map {
-            Orders(it.id,it.fecha,it.id_cliente,it.estado,it.total)
+            Orders(it.orderId,it.fecha,it.id_cliente,it.estado,it.total)
         }
     }
+
 
     override suspend fun insertOrders(orders: Orders) {
         val ordersEntity = ordersEntity(orders.id,orders.fecha,orders.id_cliente,orders.estado,orders.total)
