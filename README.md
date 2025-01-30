@@ -46,9 +46,15 @@ Próximos pasos:
 ---
 
 ## 🎨 **Vista Previa (en desarrollo)**  
-*Inserta aquí capturas de pantalla o GIFs de tu aplicación mientras avanzas.*  
+
+![Dashboard](https://github.com/user-attachments/assets/0decae6f-9d22-4802-8641-92f033ff0232)
+
+
 
 ---
 
 ## 📩 **Contacto y Portafolio**  
 Por ahora no tengo un portafolio, pero estoy trabajando en ello. Si quieres saber más sobre este proyecto o colaborar conmigo, ¡no dudes en contactarme!  
+- [LinkedIn](https://www.linkedin.com/in/jorge-rua-94b070200/)  
+- [Twitter (X)](https://x.com/york_ruve)  
+- [GitHub](https://github.com/yorkruv)  
