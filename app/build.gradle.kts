@@ -84,5 +84,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     ksp("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation ("androidx.hilt:hilt-navigation-fragment:1.2.0")
+
+    //Recycler View
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 }
 
