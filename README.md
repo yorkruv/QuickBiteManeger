@@ -55,6 +55,7 @@ Próximos pasos:
 
 ## 📩 **Contacto y Portafolio**  
 Por ahora no tengo un portafolio, pero estoy trabajando en ello. Si quieres saber más sobre este proyecto o colaborar conmigo, ¡no dudes en contactarme!  
-- [LinkedIn](https://www.linkedin.com/in/jorge-rua-94b070200/)  
+- [LinkedIn](www.linkedin.com/in/jorge-rua-vera-42904134b)  
 - [Twitter (X)](https://x.com/york_ruve)  
-- [GitHub](https://github.com/yorkruv)  
+- [GitHub](https://github.com/yorkruv)
+- [Instagram](https://www.instagram.com/york_ruve/)
