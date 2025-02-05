@@ -11,7 +11,9 @@ import com.york_ruve.quickbitemaneger.Domain.Model.Orders
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.deleteOrdersUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getAllOrdersUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getAllOrdersWithDishesUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getOrderByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getOrdersByStateUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getOrdersWithDishesById
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.insertOrdersUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.updateOrdersUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.OrdersDish.deleteOrderDishUseCase
@@ -30,13 +32,21 @@ class ordersViewModel @Inject constructor(
     private val getOrdersByStateUseCase: getOrdersByStateUseCase,
     private val insertOrderDishUseCase: insertOrderDishUseCase,
     private val deleteOrderDishUseCase: deleteOrderDishUseCase,
-    private val getAllOrdersWithDishesUseCase: getAllOrdersWithDishesUseCase
+    private val getAllOrdersWithDishesUseCase: getAllOrdersWithDishesUseCase,
+    private val getOrdersByIdUseCase: getOrderByIdUseCase,
+    private val getOrdersWithDishesById: getOrdersWithDishesById
 ) : ViewModel() {
     private val _orders = MutableLiveData<List<Orders>>()
     val orders: LiveData<List<Orders>> = _orders
 
+    private val _order = MutableLiveData<Orders>()
+    val order: LiveData<Orders> = _order
+
     private val _orderDish = MutableLiveData<List<orderWithDishes>>()
     val orderDish: LiveData<List<orderWithDishes>> = _orderDish
+
+    private val _orderDishById = MutableLiveData<orderWithDishes>()
+    val orderDishById:LiveData<orderWithDishes> = _orderDishById
 
     private val _ordersPending = MutableLiveData<Int>()
     val ordersPending: LiveData<Int> = _ordersPending
@@ -48,6 +58,20 @@ class ordersViewModel @Inject constructor(
             _orders.postValue(orders)
         }
 
+    }
+
+    fun loadOrderById(id:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val order = getOrdersByIdUseCase(id)
+            _order.postValue(order)
+        }
+    }
+
+    fun loadOrderDishById(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val orderDish = getOrdersWithDishesById(id)
+            _orderDishById.postValue(orderDish)
+        }
     }
 
     fun addOrder(order: Orders) {

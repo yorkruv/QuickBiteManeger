@@ -2,6 +2,7 @@ package com.york_ruve.quickbitemaneger.di
 
 import android.content.Context
 import androidx.room.Room
+import com.york_ruve.quickbitemaneger.Data.Dao.clientsDao
 import com.york_ruve.quickbitemaneger.Data.Dao.dishIngredientsDao
 import com.york_ruve.quickbitemaneger.Data.Dao.dishesDao
 import com.york_ruve.quickbitemaneger.Data.Dao.ingredientsDao
@@ -59,5 +60,10 @@ object DatabaseModule {
     @Provides
     fun providesIngredientsDao(database: quickBiteDatabase): ingredientsDao {
         return database.ingredientsDao()
+    }
+
+    @Provides
+    fun provideClientsDao(database: quickBiteDatabase): clientsDao {
+        return database.clientsDao()
     }
 }

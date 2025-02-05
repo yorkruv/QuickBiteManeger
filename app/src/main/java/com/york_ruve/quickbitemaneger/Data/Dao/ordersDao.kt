@@ -23,6 +23,10 @@ interface ordersDao {
     @Query("SELECT * FROM Orders WHERE orderId = :id")
     fun getOrderById(id: Int): ordersEntity
 
+    @Transaction
+    @Query("SELECT * FROM Orders WHERE orderId = :id")
+    fun getOrdersWithDishesById(id: Int): orderWithDishes
+
     @Query("SELECT * FROM Orders WHERE estado = :state")
     fun getOrdersByState(state: String): List<ordersEntity>
 

@@ -13,19 +13,39 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
         loadFragment(dashBoardFragment())
+        setListeners()
 
     }
 
-    private fun loadFragment(fragment: Fragment){
+    private fun setListeners() {
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    loadFragment(dashBoardFragment())
+                    binding.tvPantalla.text = getString(R.string.DashBoard)
+                    true
+                }
+                R.id.nav_orders -> {
+                    loadFragment(OrdersFragment())
+                    binding.tvPantalla.text = getString(R.string.Order_management)
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+    private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(binding.MainFragment.id, fragment)
+        transaction.replace(binding.MainFragment.id, fragment)
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 }

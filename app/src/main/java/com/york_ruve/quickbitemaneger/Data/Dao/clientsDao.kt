@@ -4,23 +4,29 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.york_ruve.quickbitemaneger.Data.Entities.ClientsEntity
+import com.york_ruve.quickbitemaneger.Data.Relations.ClientWithOrdersAndDishes
 
 @Dao
 interface clientsDao {
     @Query("SELECT * FROM clients")
-    fun getAllClients(): List<ClientsEntity>
+    suspend fun getAllClients(): List<ClientsEntity>
+
+    @Transaction
+    @Query("SELECT * FROM clients")
+    suspend fun getAllClientsWithOrdersAndDishes(): List<ClientWithOrdersAndDishes>
 
     @Query("SELECT * FROM clients WHERE id = :id")
-    fun getClientById(id: Int): ClientsEntity?
+    suspend fun getClientById(id: Int): ClientsEntity?
 
     @Insert
-    fun insertClient(client: ClientsEntity)
+    suspend fun insertClient(client: ClientsEntity)
 
     @Update
-    fun updateClient(client:ClientsEntity)
+    suspend fun updateClient(client:ClientsEntity)
 
     @Delete
-    fun deleteClient(client: ClientsEntity)
+    suspend fun deleteClient(client: ClientsEntity)
 }

@@ -1,17 +1,20 @@
 package com.york_ruve.quickbitemaneger.di
 
+import com.york_ruve.quickbitemaneger.Data.Dao.clientsDao
 import com.york_ruve.quickbitemaneger.Data.Dao.dishIngredientsDao
 import com.york_ruve.quickbitemaneger.Data.Dao.dishesDao
 import com.york_ruve.quickbitemaneger.Data.Dao.ingredientsDao
 import com.york_ruve.quickbitemaneger.Data.Dao.ordersDao
 import com.york_ruve.quickbitemaneger.Data.Dao.ordersDishDao
 import com.york_ruve.quickbitemaneger.Data.Dao.salesDao
+import com.york_ruve.quickbitemaneger.Data.Repository.clientsRepository
 import com.york_ruve.quickbitemaneger.Data.Repository.dishIngredientsRepository
 import com.york_ruve.quickbitemaneger.Data.Repository.dishRepository
 import com.york_ruve.quickbitemaneger.Data.Repository.ingredientsRepository
 import com.york_ruve.quickbitemaneger.Data.Repository.ordersDishRepository
 import com.york_ruve.quickbitemaneger.Data.Repository.ordersRepository
 import com.york_ruve.quickbitemaneger.Data.Repository.saleRepository
+import com.york_ruve.quickbitemaneger.Domain.Repository.IClientsRepository
 import com.york_ruve.quickbitemaneger.Domain.Repository.IDishIngredients
 import com.york_ruve.quickbitemaneger.Domain.Repository.IDishesRepository
 import com.york_ruve.quickbitemaneger.Domain.Repository.IIngredientsRepository
@@ -61,5 +64,11 @@ object RepositoryModule {
     @Singleton
     fun provideIngredientsRepository(ingredientsDao: ingredientsDao): IIngredientsRepository {
         return ingredientsRepository(ingredientsDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideClientsRepository(clientsDao: clientsDao): IClientsRepository {
+        return clientsRepository(clientsDao)
     }
 }

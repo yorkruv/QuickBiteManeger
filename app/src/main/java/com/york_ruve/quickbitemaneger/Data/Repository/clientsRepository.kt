@@ -2,6 +2,7 @@ package com.york_ruve.quickbitemaneger.Data.Repository
 
 import com.york_ruve.quickbitemaneger.Data.Dao.clientsDao
 import com.york_ruve.quickbitemaneger.Data.Entities.ClientsEntity
+import com.york_ruve.quickbitemaneger.Data.Relations.ClientWithOrdersAndDishes
 import com.york_ruve.quickbitemaneger.Domain.Model.Clients
 import com.york_ruve.quickbitemaneger.Domain.Repository.IClientsRepository
 
@@ -10,6 +11,16 @@ class clientsRepository(private val clientsDao: clientsDao): IClientsRepository 
         return clientsDao.getAllClients().map {
             Clients(it.id,it.nombre,it.direccion,it.telefono, it.email)
         }
+    }
+
+    override suspend fun getClientById(id: Int): Clients? {
+        return clientsDao.getClientById(id)?.let {
+            Clients(it.id,it.nombre,it.direccion,it.telefono, it.email)
+        }
+    }
+
+    override suspend fun getAllClientsWithOrdersAndDishes(): List<ClientWithOrdersAndDishes> {
+        return clientsDao.getAllClientsWithOrdersAndDishes()
     }
 
     override suspend fun insertClient(client: Clients) {

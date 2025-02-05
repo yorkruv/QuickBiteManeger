@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class ordersEntity(
     @PrimaryKey(autoGenerate = true) val orderId: Int? = 0,
     val fecha: String = "",
-    val id_cliente: Int = 0,
+    val cliente: String = "",
     val estado: String = "",
     val total: Double = 0.0
     )

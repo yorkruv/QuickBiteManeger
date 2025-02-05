@@ -15,4 +15,5 @@
     <style name="ic_color" >
         <item name="android:tint">@color/secondNight</item>
     </style>
+
 </resources>

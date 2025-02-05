@@ -6,6 +6,8 @@ import com.york_ruve.quickbitemaneger.Domain.Model.Orders
 interface IOrdersRepository {
     suspend fun getAllOrders(): List<Orders>
     suspend fun getOrdersWithDishes(): List<orderWithDishes>
+    suspend fun getOrderById(id: Int): Orders
+    suspend fun getOrdersWithDishesById(id: Int): orderWithDishes
     suspend fun getOrdersByState(state: String): List<Orders>
     suspend fun insertOrders(orders: Orders)
     suspend fun updateOrders(orders: Orders)

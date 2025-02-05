@@ -9,18 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.york_ruve.quickbitemaneger.Data.Entities.DishIngredient
+import com.york_ruve.quickbitemaneger.Data.Entities.OrdersDish
+import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
+import com.york_ruve.quickbitemaneger.Domain.Model.Dish
+import com.york_ruve.quickbitemaneger.Domain.Model.Orders
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.salesViewModel
 import com.york_ruve.quickbitemaneger.Presentation.utils.DateAxisFormatter
+import com.york_ruve.quickbitemaneger.Presentation.utils.OnOrderClickListener
 import com.york_ruve.quickbitemaneger.R
+import com.york_ruve.quickbitemaneger.databinding.ActivityMainBinding
 import com.york_ruve.quickbitemaneger.databinding.FragmentDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +44,7 @@ class dashBoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDashBoardBinding.inflate(layoutInflater)
+        binding = FragmentDashBoardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -82,8 +90,14 @@ class dashBoardFragment : Fragment() {
             }
 
         }
-        binding.btnOrders.setOnClickListener() {
-
+        binding.btnOrders.setOnClickListener {
+            val fragmentOrders = OrdersFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.MainFragment, fragmentOrders)
+                .addToBackStack(null)
+                .commit()
+        }
+        binding.btnInventory.setOnClickListener{
         }
     }
 
@@ -171,5 +185,7 @@ class dashBoardFragment : Fragment() {
             else -> false
         }
     }
+
+
 
 }

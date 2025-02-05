@@ -6,4 +6,9 @@
     <color name="select_backgraund">#5B5B5B</color>
     <color name="transparent">#00000000</color>
     <color name="secondNight">#b8b8b8</color>
+    <color name="yellowPending">#EAB308</color>
+    <color name="blueInPreparation">#3B82F6</color>
+    <color name="greenReady">#22C55E</color>
+    <color name="grayDelivered">#6B7280</color>
+    <color name="redCancelled">#D91212</color>
 </resources>

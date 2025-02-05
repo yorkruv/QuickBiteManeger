@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-        <item android:drawable="@color/select_backgraund" android:state_checked="true"/>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:androids="http://schemas.android.com/aapt">
+        <item android:state_checked="true">
+                <shape androids:shape="rectangle">
+                        <solid android:color="@color/select_backgraund"/>
+                        <corners android:radius="20dp"/>
+                </shape>
+        </item>
         <item android:drawable="@color/transparent" android:state_checked="false"/>
 </selector>
