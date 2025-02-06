@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="174dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="34dp"
+    android:paddingVertical="34dp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_pending"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/yellowPending"
+        app:cardCornerRadius="10dp"
+        android:layout_marginBottom="17dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/pending"
+            android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_in_preparation"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/blueInPreparation"
+        app:cardCornerRadius="10dp"
+        android:layout_marginBottom="17dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/in_preparation"
+            android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_ready"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/greenReady"
+        app:cardCornerRadius="10dp"
+        android:layout_marginBottom="17dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/ready"
+            android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_delivered"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/grayDelivered"
+        app:cardCornerRadius="10dp"
+        android:layout_marginBottom="17dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/delivered"
+            android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_cancelled"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/redCancelled"
+        app:cardCornerRadius="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/cancelled"
+            android:textColor="@color/white"/>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
