@@ -23,6 +23,12 @@ class clientsRepository(private val clientsDao: clientsDao): IClientsRepository 
         return clientsDao.getAllClientsWithOrdersAndDishes()
     }
 
+    override suspend fun getClientByName(name: String): Clients? {
+        return clientsDao.getClientByName(name)?.let {
+            Clients(it.id,it.nombre,it.direccion,it.telefono, it.email)
+        }
+    }
+
     override suspend fun insertClient(client: Clients) {
         val clientsEntity = ClientsEntity(client.id,client.nombre,client.direccion,client.telefono, client.email)
         clientsDao.insertClient(clientsEntity)

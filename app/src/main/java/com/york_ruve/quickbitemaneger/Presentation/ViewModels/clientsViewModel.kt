@@ -10,6 +10,7 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.deleteClientUseCa
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getAllClientsUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getAllClientsWithOrdersAndDishesUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getClientByIdUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getClientByNameUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.insertClientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.updateClientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,8 @@ class clientsViewModel @Inject constructor(
     private val updateClientUseCase: updateClientUseCase,
     private val deleteClientUseCase: deleteClientUseCase,
     private val getClientByIdUseCase: getClientByIdUseCase,
-    private val getAllClientsWithOrdersAndDishesUseCase: getAllClientsWithOrdersAndDishesUseCase
+    private val getAllClientsWithOrdersAndDishesUseCase: getAllClientsWithOrdersAndDishesUseCase,
+    private val getClientByNameUseCase: getClientByNameUseCase
 ) : ViewModel() {
     private val _clients = MutableLiveData<List<Clients>>()
     val clients: LiveData<List<Clients>> = _clients
@@ -47,6 +49,12 @@ class clientsViewModel @Inject constructor(
     fun loadClientById(id: Int) {
         viewModelScope.launch {
             _client.value = getClientByIdUseCase(id)
+        }
+    }
+
+    fun loadClientByName(name: String) {
+        viewModelScope.launch {
+            _client.value = getClientByNameUseCase(name)
         }
     }
 

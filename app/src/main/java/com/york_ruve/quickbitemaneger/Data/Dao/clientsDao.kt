@@ -21,6 +21,9 @@ interface clientsDao {
     @Query("SELECT * FROM clients WHERE id = :id")
     suspend fun getClientById(id: Int): ClientsEntity?
 
+    @Query("SELECT * FROM clients WHERE nombre = :nombre")
+    suspend fun getClientByName(nombre:String):ClientsEntity
+
     @Insert
     suspend fun insertClient(client: ClientsEntity)
 

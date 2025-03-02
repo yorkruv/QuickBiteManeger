@@ -24,6 +24,22 @@
     <string name="delivered">Entregado</string>
     <string name="cancelled">Cancelado</string>
     <string name="Order_management">Gestion de ordenes</string>
+    <string name="Menu_management">Gestion de menu</string>
+    <string name="edit_order">Editar orden</string>
+    <string name="client_name">Nombre de cliente</string>
+    <string name="select_client">Seleccionar cliente</string>
+    <string name="order_type">Tipo de orden</string>
+    <string name="dine_in">En local</string>
+    <string name="Home_delivery">Entrega a domicilio</string>
+    <string name="Table">Mesa</string>
+    <string name="address">Direccion</string>
+    <string name="info_table">Para agregar mas mesas, vaya a opciones.</string>
+    <string name="ordered_dishes">Platos de la orden</string>
+    <string name="add_dish">Añadir</string>
+    <string name="quantity">Cantidad</string>
+    <string name="restaurant_menu">Menu del restaurante</string>
+    <string name="save_order">Guardar orden</string>
+    <string name="ins_orders">Haga clic aqui para comenzar a editar la orden</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>

@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_menu -> {
+                    loadFragment(MenuFragment())
+                    binding.tvPantalla.text = getString(R.string.Menu_management)
+                    true
+                }
+
                 else -> false
             }
         }
@@ -47,5 +53,10 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(binding.MainFragment.id, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    fun updateToolbarTitleAndNavigation(title: String, itemId:Int){
+        binding.tvPantalla.text = title
+        binding.bottomNavigationView.selectedItemId = itemId
     }
 }

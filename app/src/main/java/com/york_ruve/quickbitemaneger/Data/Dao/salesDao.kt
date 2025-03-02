@@ -31,7 +31,7 @@ interface salesDao {
 
     @Query("""
         SELECT 
-            strftime('%Y-%m-%d', datetime(fecha / 1000, 'unixepoch')) AS saleDate,
+            strftime('%Y-%m-%d', fecha) AS saleDate,
             SUM(total) AS totalSales,
             COUNT(*) AS totalTransactions
         FROM sales

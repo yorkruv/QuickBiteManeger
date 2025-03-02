@@ -3,6 +3,7 @@ package com.york_ruve.quickbitemaneger.Presentation.ViewModels
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
@@ -26,16 +27,19 @@ class ordersAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orden = ordersList[position]
+        val context = holder.binding.root.context
+        val resources = context.resources
+
         holder.binding.tvPrecioTotal.text = orden.order.total.toString()
         holder.binding.tvState.text = orden.order.estado
         holder.binding.tvPlatosDelOrden.text = orden.dishes.joinToString { it.nombre }
         holder.binding.tvNameClient.text = orden.order.cliente
         val color = when (orden.order.estado) {
-            "Pendiente" -> ContextCompat.getColor(holder.binding.root.context, R.color.yellowPending)
-            "En preparación" -> ContextCompat.getColor(holder.binding.root.context, R.color.blueInPreparation)
-            "Listo para entregar" -> ContextCompat.getColor(holder.binding.root.context, R.color.greenReady)
-            "Entregado" -> ContextCompat.getColor(holder.binding.root.context, R.color.grayDelivered)
-            "Cancelado" -> ContextCompat.getColor(holder.binding.root.context, R.color.redCancelled)
+            resources.getString(R.string.pending) -> ContextCompat.getColor(holder.binding.root.context, R.color.yellowPending)
+            resources.getString(R.string.in_preparation) -> ContextCompat.getColor(holder.binding.root.context, R.color.blueInPreparation)
+            resources.getString(R.string.ready) -> ContextCompat.getColor(holder.binding.root.context, R.color.greenReady)
+            resources.getString(R.string.delivered) -> ContextCompat.getColor(holder.binding.root.context, R.color.grayDelivered)
+            resources.getString(R.string.cancelled) -> ContextCompat.getColor(holder.binding.root.context, R.color.redCancelled)
             else -> ContextCompat.getColor(holder.binding.root.context, R.color.black)
         }
         holder.binding.cvState.setCardBackgroundColor(color)

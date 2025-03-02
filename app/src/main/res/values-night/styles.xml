@@ -16,4 +16,13 @@
         <item name="android:tint">@color/secondNight</item>
     </style>
 
+    <style name="ThemeTextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">outline</item>
+    </style>
+
+    <style name="StyleRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="buttonTint">@android:color/secondary_text_dark</item>
+        <item name="android:textColor">@android:color/secondary_text_dark</item>
+    </style>
+
 </resources>

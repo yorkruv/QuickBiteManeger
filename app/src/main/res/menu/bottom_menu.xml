@@ -17,9 +17,9 @@
             android:title="@string/nav_sales"
             android:icon="@drawable/ic_sales"/>
 
-        <item android:id="@+id/nav_clients"
-            android:title="@string/nav_clients"
-            android:icon="@drawable/ic_clients"/>
+        <item android:id="@+id/nav_menu"
+            android:title="@string/nav_menu"
+            android:icon="@drawable/ic_menu"/>
 
 
 </menu>

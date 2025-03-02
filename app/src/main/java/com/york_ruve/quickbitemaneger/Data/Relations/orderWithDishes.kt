@@ -15,6 +15,5 @@ data class orderWithDishes (
         entityColumn = "dishId",
         associateBy = Junction(OrdersDish::class)
     )
-    val dishes: List<dishEntity>
-
+    val dishes: List<dishEntity>,
 )

@@ -6,31 +6,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import com.york_ruve.quickbitemaneger.Data.Entities.OrdersDish
+import com.york_ruve.quickbitemaneger.Data.Entities.ordersEntity
+import com.york_ruve.quickbitemaneger.Data.Relations.dishWithQuantity
 import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
+import com.york_ruve.quickbitemaneger.Domain.Model.Dish
 import com.york_ruve.quickbitemaneger.Domain.Model.Orders
+import com.york_ruve.quickbitemaneger.Domain.Model.Sales
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.addDishAdapter
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.clientsViewModel
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishOrderAdapter
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersAdapter
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersViewModel
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.salesViewModel
+import com.york_ruve.quickbitemaneger.Presentation.utils.OnAddDishClickListener
 import com.york_ruve.quickbitemaneger.Presentation.utils.OnOrderClickListener
+import com.york_ruve.quickbitemaneger.Presentation.utils.OnOrderDishClickListener
 import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.FragmentOrdersBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 @AndroidEntryPoint
-class OrdersFragment : Fragment(), OnOrderClickListener {
+class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListener,
+    OnAddDishClickListener {
     private lateinit var binding: FragmentOrdersBinding
+    private lateinit var clientAdapter: ArrayAdapter<String>
 
     private val ordersViewModel: ordersViewModel by viewModels()
+    private val clientsViewModel: clientsViewModel by viewModels()
+    private val dishViewModel: dishViewModel by viewModels()
+    private val salesViewModel: salesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOrdersBinding.inflate(layoutInflater)
+        binding = FragmentOrdersBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,11 +72,12 @@ class OrdersFragment : Fragment(), OnOrderClickListener {
 
     }
 
+
     private fun initRecyclerView() {
         ordersViewModel.getOrdersDish()
-        ordersViewModel.orderDish.observe(viewLifecycleOwner){
+        ordersViewModel.orderDish.observe(viewLifecycleOwner) {
             binding.rvOrders.layoutManager = LinearLayoutManager(this.context)
-            binding.rvOrders.adapter = ordersAdapter(it,this)
+            binding.rvOrders.adapter = ordersAdapter(it, this)
         }
 
     }
@@ -60,9 +91,17 @@ class OrdersFragment : Fragment(), OnOrderClickListener {
             }
             binding.bottomNavigationOrderState2.menu.setGroupCheckable(0, true, true)
             when (item.itemId) {
-                R.id.all -> {}
-                R.id.Pending -> {}
-                R.id.in_preparation -> {}
+                R.id.all -> {
+                    ordersViewModel.getOrdersDish()
+                }
+
+                R.id.Pending -> {
+                    ordersViewModel.getOrdersByState(requireContext().getString(R.string.pending))
+                }
+
+                R.id.in_preparation -> {
+                    ordersViewModel.getOrdersByState(requireContext().getString(R.string.in_preparation))
+                }
             }
             true
         }
@@ -73,11 +112,34 @@ class OrdersFragment : Fragment(), OnOrderClickListener {
             }
             binding.bottomNavigationOrderState.menu.setGroupCheckable(0, true, true)
             when (item.itemId) {
-                R.id.ready -> {}
-                R.id.Delivered -> {}
-                R.id.canceled -> {}
+                R.id.ready -> {
+                    ordersViewModel.getOrdersByState(requireContext().getString(R.string.ready))
+                }
+
+                R.id.Delivered -> {
+                    ordersViewModel.getOrdersByState(requireContext().getString(R.string.delivered))
+                }
+
+                R.id.canceled -> {
+                    ordersViewModel.getOrdersByState(requireContext().getString(R.string.cancelled))
+                }
             }
             true
+        }
+
+        binding.flbAddOrder.setOnClickListener {
+            val orden = Orders(
+                null,
+                LocalDateTime.now().toString(),
+                requireContext().getString(R.string.ins_orders),
+                requireContext().getString(R.string.pending),
+                0.0
+            )
+            ordersViewModel.addOrder(orden)
+            ordersViewModel.loadOrders()
+            ordersViewModel.orders.observe(viewLifecycleOwner){
+                initRecyclerView()
+            }
         }
     }
 
@@ -97,65 +159,177 @@ class OrdersFragment : Fragment(), OnOrderClickListener {
         showStateDialog(orden)
     }
 
+    override fun onDeleteIconClick(dish: dishWithQuantity, orderId: Int) {
+        val orderDish = OrdersDish(orderId, dish.dish.dishId!!, dish.quantity)
+        ordersViewModel.deleteOrderDish(orderDish)
+        ordersViewModel.loadDishWithQuantity(orderId)
+    }
+
+    override fun onQuantityChanged(dish: dishWithQuantity, orderId: Int, newQuantity: Int) {
+        val orderDish = OrdersDish(orderId, dish.dish.dishId!!, newQuantity)
+        ordersViewModel.addOrderDish(orderDish)
+    }
+
+
     override fun showStateDialog(orden: orderWithDishes) {
         val statedialog = Dialog(requireContext())
         statedialog.setContentView(R.layout.dialog_stateorder)
 
-        val cvPending = statedialog.findViewById<CardView>(R.id.cv_pending)
-        val cvInPreparation = statedialog.findViewById<CardView>(R.id.cv_in_preparation)
-        val cvReady = statedialog.findViewById<CardView>(R.id.cv_ready)
-        val cvDelivered = statedialog.findViewById<CardView>(R.id.cv_delivered)
-        val cvCancelled = statedialog.findViewById<CardView>(R.id.cv_cancelled)
+        val stateMap = mapOf(
+            R.id.cv_pending to requireContext().getString(R.string.pending),
+            R.id.cv_in_preparation to requireContext().getString(R.string.in_preparation),
+            R.id.cv_ready to requireContext().getString(R.string.ready),
+            R.id.cv_delivered to requireContext().getString(R.string.delivered),
+            R.id.cv_cancelled to requireContext().getString(R.string.cancelled)
+        )
 
-        cvPending.setOnClickListener {
-            orden.order.estado = "Pendiente"
-            val orden = Orders(orden.order.orderId,orden.order.fecha,orden.order.cliente,orden.order.estado,orden.order.total)
-            ordersViewModel.updateOrder(orden)
-            initRecyclerView()
-            statedialog.dismiss()
-
-        }
-
-        cvInPreparation.setOnClickListener {
-            orden.order.estado = "En preparación"
-            val orden = Orders(orden.order.orderId,orden.order.fecha,orden.order.cliente,orden.order.estado,orden.order.total)
-            ordersViewModel.updateOrder(orden)
-            initRecyclerView()
-            statedialog.dismiss()
-
-        }
-
-        cvReady.setOnClickListener {
-            orden.order.estado = "Listo para entregar"
-            val orden = Orders(orden.order.orderId,orden.order.fecha,orden.order.cliente,orden.order.estado,orden.order.total)
-            ordersViewModel.updateOrder(orden)
-            initRecyclerView()
-            statedialog.dismiss()
-
-        }
-
-        cvDelivered.setOnClickListener {
-            orden.order.estado = "Entregado"
-            val orden = Orders(orden.order.orderId,orden.order.fecha,orden.order.cliente,orden.order.estado,orden.order.total)
-            ordersViewModel.updateOrder(orden)
-            initRecyclerView()
-            statedialog.dismiss()
-
-        }
-
-        cvCancelled.setOnClickListener {
-            orden.order.estado = "Cancelado"
-            val orden = Orders(orden.order.orderId,orden.order.fecha,orden.order.cliente,orden.order.estado,orden.order.total)
-            ordersViewModel.updateOrder(orden)
-            initRecyclerView()
-            statedialog.dismiss()
-
+        stateMap.forEach { (id, state) ->
+            statedialog.findViewById<CardView>(id).setOnClickListener {
+                val updatedOrder = Orders(
+                    id = orden.order.orderId,
+                    fecha = orden.order.fecha,
+                    cliente = orden.order.cliente,
+                    estado = state, // Aquí asignamos el nuevo estado
+                    total = orden.order.total
+                )
+                ordersViewModel.updateOrder(updatedOrder)
+                if(state == requireContext().getString(R.string.delivered)){
+                    clientsViewModel.loadClientByName(orden.order.cliente)
+                    clientsViewModel.client.observe(viewLifecycleOwner){
+                        val sale = Sales(null, orden.order.orderId!!, it?.id, LocalDate.now().toString(), orden.order.total)
+                        salesViewModel.addSale(sale)
+                    }
+                }
+                initRecyclerView()
+                statedialog.dismiss()
+            }
         }
 
         statedialog.show()
     }
 
     override fun showOrderDialog(orden: orderWithDishes) {
-        TODO("Not yet implemented")
+        val orderDialog = Dialog(requireContext())
+        orderDialog.setContentView(R.layout.dialog_order)
+
+        val autoComplateClient = orderDialog.findViewById<AutoCompleteTextView>(R.id.actv_cliente)
+        val radioGroup = orderDialog.findViewById<RadioGroup>(R.id.rg_order_type)
+        val tv_order_type = orderDialog.findViewById<TextView>(R.id.tv_order_type)
+        val sp_tables = orderDialog.findViewById<Spinner>(R.id.sp_tables)
+        val et_address = orderDialog.findViewById<EditText>(R.id.et_address)
+        val iv_infoTable = orderDialog.findViewById<ImageView>(R.id.iv_infoTable)
+        val rv_orderDish = orderDialog.findViewById<RecyclerView>(R.id.rv_orderDish)
+        val btn_addDish = orderDialog.findViewById<MaterialButton>(R.id.btn_addDish)
+        val btn_saveOrder = orderDialog.findViewById<MaterialButton>(R.id.btn_save)
+
+        if (orden.order.cliente != requireContext().getString(R.string.ins_orders)) {
+            autoComplateClient.setText(orden.order.cliente)
+        }
+        clientsViewModel.loadClients()
+        clientsViewModel.clients.observe(viewLifecycleOwner) { clientes ->
+            val nameClient = clientes.map { it.nombre }
+            clientAdapter = ArrayAdapter(
+                requireContext(),
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                nameClient
+            )
+            autoComplateClient.setAdapter(clientAdapter)
+        }
+        autoComplateClient.setOnItemClickListener { _, _, position, _ ->
+            val selectedClient = clientAdapter.getItem(position)
+            autoComplateClient.setText(selectedClient)
+            clientsViewModel.loadClientByName(autoComplateClient.text.toString())
+        }
+        clientsViewModel.client.observe(viewLifecycleOwner) {
+            if (it != null) {
+                et_address.setText(it.direccion)
+            }
+        }
+
+        val mesas = listOf("Mesa 1", "Mesa 2", "Mesa 3")
+        val adapter = ArrayAdapter(
+            requireContext(),
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            mesas
+        )
+        sp_tables.adapter = adapter
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rb_home_delivery -> {
+                    sp_tables.visibility = View.GONE
+                    et_address.visibility = View.VISIBLE
+                    tv_order_type.text = requireContext().getString(R.string.address)
+                    iv_infoTable.visibility = View.GONE
+                }
+
+                R.id.rb_dine_in -> {
+                    sp_tables.visibility = View.VISIBLE
+                    et_address.visibility = View.GONE
+                    tv_order_type.text = requireContext().getString(R.string.Table)
+                    iv_infoTable.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        ordersViewModel.loadDishWithQuantity(orden.order.orderId!!)
+        ordersViewModel.dishWithQuantity.observe(viewLifecycleOwner) {
+            val dishAdapter = dishOrderAdapter(it, orden.order.orderId, this)
+            rv_orderDish.layoutManager = LinearLayoutManager(requireContext())
+            rv_orderDish.adapter = dishAdapter
+        }
+
+        btn_addDish.setOnClickListener {
+            showDishDialog(orden.order.orderId)
+        }
+
+        btn_saveOrder.setOnClickListener {
+            var priceTotal = 0.0
+            ordersViewModel.loadDishWithQuantity(orden.order.orderId)
+            ordersViewModel.dishWithQuantity.observe(viewLifecycleOwner) {
+                for (dish in it) {
+                    priceTotal += dish.dish.precio * dish.quantity
+                }
+                val updatedOrder = Orders(
+                id = orden.order.orderId,
+                fecha = orden.order.fecha,
+                cliente = autoComplateClient.text.toString(),
+                estado = orden.order.estado,
+                total = priceTotal
+            )
+                ordersViewModel.updateOrder(updatedOrder)
+                orderDialog.dismiss()
+                initRecyclerView()
+            }
+
+        }
+        orderDialog.show()
+    }
+
+    fun showDishDialog(orderId: Int) {
+        val dishDialog = Dialog(requireContext())
+        dishDialog.setContentView(R.layout.dialog_adddish)
+
+        val rv_addDishOrder = dishDialog.findViewById<RecyclerView>(R.id.rv_addDishOrder)
+        val iv_close = dishDialog.findViewById<ImageView>(R.id.iv_close)
+
+        dishViewModel.loadDishes()
+        dishViewModel.dish.observe(viewLifecycleOwner) {
+            val addDishAdapter = addDishAdapter(it, this, orderId)
+            rv_addDishOrder.layoutManager = LinearLayoutManager(requireContext())
+            rv_addDishOrder.adapter = addDishAdapter
+
+        }
+
+        iv_close.setOnClickListener {
+            dishDialog.dismiss()
+        }
+        dishDialog.show()
+    }
+
+    override fun onAddDishClick(dish: Dish, orderId: Int) {
+        val orderDish = OrdersDish(orderId, dish.id!!, 1)
+        ordersViewModel.addOrderDish(orderDish)
+        ordersViewModel.loadDishWithQuantity(orderId)
+        Toast.makeText(requireContext(), "Plato agregado", Toast.LENGTH_SHORT).show()
     }
 }

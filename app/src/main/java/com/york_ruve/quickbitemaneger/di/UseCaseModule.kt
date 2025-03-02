@@ -11,6 +11,7 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.deleteClientUseCa
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getAllClientsUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getAllClientsWithOrdersAndDishesUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getClientByIdUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getClientByNameUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.insertClientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.updateClientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Dish.getAllDishesUseCase
@@ -23,6 +24,7 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredie
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.deleteOrdersUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getAllOrdersUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getAllOrdersWithDishesUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getAlldishesWithQuantityUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getOrderByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getOrdersByStateUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.getOrdersWithDishesById
@@ -144,6 +146,11 @@ object UseCaseModule {
         return getOrdersWithDishesById(ordersRepository)
     }
 
+    @Provides
+    fun providegetAlldishesWithQuantity(ordersRepository: IOrdersRepository): getAlldishesWithQuantityUseCase {
+        return getAlldishesWithQuantityUseCase(ordersRepository)
+    }
+
     //Ingredients
     @Provides
     fun provideInsertIngredientsUseCase(ingredientsRepository: IIngredientsRepository): insertIngredientUseCase {
@@ -199,5 +206,10 @@ object UseCaseModule {
     @Provides
     fun providesdeleteClientUseCase(clientsRepository: IClientsRepository): deleteClientUseCase {
         return deleteClientUseCase(clientsRepository)
+    }
+
+    @Provides
+    fun providesGetClientByNameUseCase(clientsRepository: IClientsRepository): getClientByNameUseCase {
+        return getClientByNameUseCase(clientsRepository)
     }
 }

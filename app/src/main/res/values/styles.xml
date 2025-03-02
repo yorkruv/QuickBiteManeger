@@ -26,4 +26,12 @@
     <style name="ic_color" >
         <item name="android:tint">@color/black</item>
     </style>
+
+    <style name="ThemeTextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">outline</item>
+    </style>
+
+    <style name="StyleRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/black</item>
+    </style>
 </resources>

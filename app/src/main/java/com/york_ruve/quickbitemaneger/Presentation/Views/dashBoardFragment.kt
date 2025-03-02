@@ -19,8 +19,10 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.york_ruve.quickbitemaneger.Data.Entities.DishIngredient
 import com.york_ruve.quickbitemaneger.Data.Entities.OrdersDish
 import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
+import com.york_ruve.quickbitemaneger.Domain.Model.Clients
 import com.york_ruve.quickbitemaneger.Domain.Model.Dish
 import com.york_ruve.quickbitemaneger.Domain.Model.Orders
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.clientsViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersViewModel
@@ -38,6 +40,7 @@ class dashBoardFragment : Fragment() {
     private val salesViewModel: salesViewModel by viewModels()
     private val ordersViewModel: ordersViewModel by viewModels()
     private val dishViewModel: dishViewModel by viewModels()
+    private val clientsViewModel: clientsViewModel by viewModels()
     private val ingredientViewModel: ingredientViewModel by viewModels()
     private lateinit var binding: FragmentDashBoardBinding
     override fun onCreateView(
@@ -50,27 +53,16 @@ class dashBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
         setUpSpinner()
         viewObservers()
         setListeners()
-        prueba()
 
     }
 
-    private fun prueba() {
-
-        ordersViewModel.orderDish.observe(viewLifecycleOwner) {
-            Log.d("TAG", "prueba: $it")
-        }
-
-        dishViewModel.getAllDishesWithIngredients()
-        dishViewModel.dishIngredient.observe(viewLifecycleOwner) {
-            Log.d("dishIngredients", "$it")
-        }
-        ordersViewModel.getOrdersByState("Pendiente")
+    private fun init() {
+        ordersViewModel.getOrdersByState(requireContext().getString(R.string.pending))
         ingredientViewModel.getAllIngredients()
-
-
     }
 
     private fun setListeners() {
@@ -96,8 +88,10 @@ class dashBoardFragment : Fragment() {
                 .replace(R.id.MainFragment, fragmentOrders)
                 .addToBackStack(null)
                 .commit()
+            (requireActivity() as MainActivity).updateToolbarTitleAndNavigation(requireContext().getString(R.string.Order_management), R.id.nav_orders)
         }
-        binding.btnInventory.setOnClickListener{
+        binding.btnInventory.setOnClickListener {
+
         }
     }
 
@@ -153,11 +147,14 @@ class dashBoardFragment : Fragment() {
             if (dishWithIngredients != null) {
                 android.util.Log.d("dishIngredients", "$dishWithIngredients")
                 val ingredientList = dishWithIngredients.ingredients.map { it.ingredientId }
-                ingredientViewModel.getDishIngredientsById(dishWithIngredients.dish.dishId,ingredientList)
+                ingredientViewModel.getDishIngredientsById(
+                    dishWithIngredients.dish.dishId,
+                    ingredientList
+                )
             }
         }
-        ingredientViewModel.dishIngredients.observe(viewLifecycleOwner){dishIngredientsList ->
-            dishIngredientsList.forEach{dishIngredient ->
+        ingredientViewModel.dishIngredients.observe(viewLifecycleOwner) { dishIngredientsList ->
+            dishIngredientsList.forEach { dishIngredient ->
                 Log.d("dishWithQuantity", "$dishIngredient")
                 val quantity = dishIngredient.quantity
                 Log.d("Ingrediente ${dishIngredient.ingredientId}", "Cantidad: $quantity")
@@ -185,7 +182,6 @@ class dashBoardFragment : Fragment() {
             else -> false
         }
     }
-
 
 
 }
