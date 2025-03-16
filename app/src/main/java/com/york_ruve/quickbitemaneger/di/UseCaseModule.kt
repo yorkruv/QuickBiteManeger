@@ -14,10 +14,14 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getClientByIdUseC
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.getClientByNameUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.insertClientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Clients.updateClientUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Dish.deleteDishUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Dish.getAllDishesUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Dish.getAllDishesWithIngredientsUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Dish.getIngredientsWithQuantityUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.deleteDishIngredientsByDishIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.getDishIngredientsByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.insertDishIngredientsUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.updateDishIngredientQuantityUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getAllIngredientsUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientsByDishIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredientUseCase
@@ -91,6 +95,21 @@ object UseCaseModule {
         return insertDishIngredientsUseCase(dishRepository)
     }
 
+    fun providegetIngredientsWithQuantityUseCase(dishRepository: IDishesRepository): getIngredientsWithQuantityUseCase {
+        return getIngredientsWithQuantityUseCase(dishRepository)
+    }
+
+    fun providedeleteDishIngredientsByDishIdUseCase(dishRepository: IDishIngredients): deleteDishIngredientsByDishIdUseCase {
+        return deleteDishIngredientsByDishIdUseCase(dishRepository)
+    }
+
+    fun provideDeleteDishUseCase(dishRepository: IDishesRepository): deleteDishUseCase {
+        return deleteDishUseCase(dishRepository)
+    }
+
+    fun provideUpdateDishIngredientQuantity(dishRepository: IDishIngredients): updateDishIngredientQuantityUseCase{
+        return updateDishIngredientQuantityUseCase(dishRepository)
+    }
 
     //Orders
     @Provides

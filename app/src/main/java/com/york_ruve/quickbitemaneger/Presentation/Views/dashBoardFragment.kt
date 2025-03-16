@@ -21,6 +21,7 @@ import com.york_ruve.quickbitemaneger.Data.Entities.OrdersDish
 import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
 import com.york_ruve.quickbitemaneger.Domain.Model.Clients
 import com.york_ruve.quickbitemaneger.Domain.Model.Dish
+import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
 import com.york_ruve.quickbitemaneger.Domain.Model.Orders
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.clientsViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
@@ -78,7 +79,6 @@ class dashBoardFragment : Fragment() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
 
         }

@@ -41,13 +41,24 @@
     <string name="restaurant_menu">Restaurant menu</string>
     <string name="save_order">Save order</string>
     <string name="ins_orders">Click here to start editing the order</string>
-
+    <string name="list_dishes">Menu</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="actions">Actions</string>
+    <string name="edit_dish">Edit dish</string>
+    <string name="add_ingredient">Add ingredient</string>
+    <string name="save_dish">Save dish</string>
+    <string name="list_ingredients">List of ingredients</string>
+    <string name="unit">Unit</string>
+    <string name="add">Add</string>
+    <string name="Added_ingredient">Added ingredient</string>
+    <string name="ins_dishes">Press edit to modify the new dish</string>
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>
         <item>@string/year</item>
     </string-array>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
 </resources>

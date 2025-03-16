@@ -42,7 +42,7 @@ interface salesDao {
 
     @Query("""
         SELECT 
-            strftime('%Y-%m', datetime(fecha / 1000, 'unixepoch')) AS saleMonth,
+            strftime('%Y-%m', fecha) AS saleMonth,
             SUM(total) AS totalSales,
             COUNT(*) AS totalTransactions
         FROM sales
@@ -53,7 +53,7 @@ interface salesDao {
 
     @Query("""
         SELECT 
-            strftime('%Y', datetime(fecha / 1000, 'unixepoch')) AS saleYear,
+            strftime('%Y', fecha) AS saleYear,
             SUM(total) AS totalSales,
             COUNT(*) AS totalTransactions
         FROM sales

@@ -17,4 +17,10 @@ interface dishIngredientsDao {
 
     @Delete
     fun deleteDishIngredient(dishIngredient: DishIngredient)
+
+    @Query("DELETE FROM DishIngredient WHERE dishId = :dishId")
+    fun deleteDishIngredientsByDishId(dishId: Int)
+
+    @Query("UPDATE DishIngredient SET quantity = :newQuantity WHERE dishId = :dishId AND ingredientId = :ingredientId")
+    fun updateDishIngredientQuantity(dishId: Int, ingredientId: Int, newQuantity: Double)
 }

@@ -300,7 +300,6 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                 orderDialog.dismiss()
                 initRecyclerView()
             }
-
         }
         orderDialog.show()
     }

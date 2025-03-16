@@ -3,6 +3,7 @@ package com.york_ruve.quickbitemaneger.Data.Repository
 import com.york_ruve.quickbitemaneger.Data.Dao.dishesDao
 import com.york_ruve.quickbitemaneger.Data.Entities.dishEntity
 import com.york_ruve.quickbitemaneger.Data.Relations.DishWithIngredients
+import com.york_ruve.quickbitemaneger.Data.Relations.IngredientsWithQuantity
 import com.york_ruve.quickbitemaneger.Domain.Model.Dish
 import com.york_ruve.quickbitemaneger.Domain.Repository.IDishesRepository
 import javax.inject.Inject
@@ -25,12 +26,21 @@ class dishRepository @Inject constructor(
         return dishDao.getAllDishesWithIngredients()
     }
 
+    override suspend fun getIngredientsWithQuantity(dishId: Int): List<IngredientsWithQuantity> {
+        return dishDao.getIngredientsWithQuantity(dishId)
+    }
+
     override suspend fun getIngredientsByDishId(dishId: Int): DishWithIngredients? {
         return dishDao.getIngredientsByDishId(dishId)
     }
 
-    override suspend fun insertDish(dish: Dish) {
+    override suspend fun insertDish(dish: Dish): Long {
         val dishEntity = dishEntity(dish.id, dish.name, dish.description, dish.price)
-        dishDao.insertDish(dishEntity)
+        return dishDao.insertDish(dishEntity)
     }
+    override suspend fun deleteDish(dish: Dish) {
+        val dishEntity = dishEntity(dish.id, dish.name, dish.description, dish.price)
+        dishDao.deleteDish(dishEntity)
+    }
+
 }

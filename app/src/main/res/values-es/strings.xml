@@ -35,11 +35,24 @@
     <string name="address">Direccion</string>
     <string name="info_table">Para agregar mas mesas, vaya a opciones.</string>
     <string name="ordered_dishes">Platos de la orden</string>
-    <string name="add_dish">Añadir</string>
+    <string name="add_dish">Añadir plato</string>
     <string name="quantity">Cantidad</string>
     <string name="restaurant_menu">Menu del restaurante</string>
     <string name="save_order">Guardar orden</string>
     <string name="ins_orders">Haga clic aqui para comenzar a editar la orden</string>
+    <string name="list_dishes">Lista de platos</string>
+    <string name="name">Nombre</string>
+    <string name="price">Precio</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="actions">Acciones</string>
+    <string name="edit_dish">Editar plato</string>
+    <string name="add_ingredient">Añadir ingrediente</string>
+    <string name="save_dish">Guardar plato</string>
+    <string name="list_ingredients">Lista de ingredientes</string>
+    <string name="unit">Unidad</string>
+    <string name="add">Añadir</string>
+    <string name="Added_ingredient">Ingrediente agregado</string>
+    <string name="ins_dishes">Presiona editar para modificar el nuevo plato</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>

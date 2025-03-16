@@ -17,4 +17,12 @@ class dishIngredientsRepository @Inject constructor(private val dishIngredientsD
     override fun deleteDishIngredient(dishIngredient: DishIngredient) {
         dishIngredientsDao.deleteDishIngredient(dishIngredient)
     }
+
+    override fun deleteDishIngredientsByDishId(dishId: Int) {
+        dishIngredientsDao.deleteDishIngredientsByDishId(dishId)
+    }
+
+    override fun updateDishIngredientQuantity(dishId: Int, ingredientId: Int, newQuantity: Double) {
+        dishIngredientsDao.updateDishIngredientQuantity(dishId, ingredientId, newQuantity)
+    }
 }
