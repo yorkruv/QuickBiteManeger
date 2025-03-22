@@ -8,6 +8,7 @@ import com.york_ruve.quickbitemaneger.Data.Entities.DishIngredient
 import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.getDishIngredientsByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getAllIngredientsUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.subtractIngredientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,8 @@ class ingredientViewModel @Inject constructor(
     private val insertIngredientUseCase: insertIngredientUseCase,
     private val getAllIngredientsUseCase: getAllIngredientsUseCase,
     private val subtractIngredientUseCase: subtractIngredientUseCase,
-    private val getDishIngredientsByIdUseCase: getDishIngredientsByIdUseCase
+    private val getDishIngredientsByIdUseCase: getDishIngredientsByIdUseCase,
+    private val getIngredientByIdUseCase: getIngredientByIdUseCase
 ) : ViewModel() {
     private val _ingredients = MutableLiveData<List<Ingredients>>()
     val ingredients: LiveData<List<Ingredients>> = _ingredients
@@ -32,6 +34,8 @@ class ingredientViewModel @Inject constructor(
     private val _dishIngredients = MutableLiveData<List<DishIngredient>>()
     val dishIngredients: LiveData<List<DishIngredient>> = _dishIngredients
 
+    private val _ingredient = MutableLiveData<Ingredients>()
+    val ingredient: LiveData<Ingredients> = _ingredient
 
     fun insertIngredient(ingredients: Ingredients) {
         viewModelScope.launch {
@@ -54,7 +58,7 @@ class ingredientViewModel @Inject constructor(
 
     }
 
-    fun SubstractIngredientStock(ingredientId: Int?, quantity: Double?){
+    fun SubstractIngredientStock(ingredientId: Int?, quantity: Double?) {
         viewModelScope.launch {
             subtractIngredientUseCase(ingredientId, quantity)
         }
@@ -65,6 +69,15 @@ class ingredientViewModel @Inject constructor(
             val dishIngredient = getDishIngredientsByIdUseCase(dishId, ingredientId)
             withContext(Dispatchers.Main) {
                 _dishIngredients.value = dishIngredient
+            }
+        }
+    }
+
+    fun getIngredientById(ingredientId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val ingredient = getIngredientByIdUseCase(ingredientId)
+            withContext(Dispatchers.Main) {
+                _ingredient.value = ingredient
             }
         }
     }

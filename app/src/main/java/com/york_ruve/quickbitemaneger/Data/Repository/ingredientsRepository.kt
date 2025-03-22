@@ -29,6 +29,14 @@ class ingredientsRepository @Inject constructor(private val ingredientsDao: ingr
     }
 
     override suspend fun getIngredientById(ingredientId: Int): Ingredients {
-        TODO("Not yet implemented")
+        return ingredientsDao.getIngredientById(ingredientId).let {
+            Ingredients(
+                it.ingredientId,
+                it.nombre,
+                it.stock,
+                it.unidad,
+                it.criticalQuantity
+            )
+        }
     }
 }
