@@ -53,6 +53,8 @@
     <string name="add">Añadir</string>
     <string name="Added_ingredient">Ingrediente agregado</string>
     <string name="ins_dishes">Presiona editar para modificar el nuevo plato</string>
+    <string name="Inventory_management">Gestion de inventario</string>
+    <string name="Ingredient_list">Lista de ingredientes</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>

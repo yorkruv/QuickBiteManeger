@@ -54,6 +54,9 @@
     <string name="add">Add</string>
     <string name="Added_ingredient">Added ingredient</string>
     <string name="ins_dishes">Press edit to modify the new dish</string>
+    <string name="Inventory_management">Inventory management</string>
+    <string name="Ingredient_list">Ingredient list</string>
+
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>
