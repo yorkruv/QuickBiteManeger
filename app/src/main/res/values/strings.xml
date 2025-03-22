@@ -56,12 +56,13 @@
     <string name="ins_dishes">Press edit to modify the new dish</string>
     <string name="Inventory_management">Inventory management</string>
     <string name="Ingredient_list">Ingredient list</string>
+    <string name="edit_ingredient">Edit ingredient</string>
+    <string name="critical_quantity">critical quantity</string>
+    <string name="save_ingredients">save ingredient</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>
         <item>@string/year</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
