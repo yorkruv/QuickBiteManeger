@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_inventory -> {
+                    loadFragment(InventoryFragment())
+                    binding.tvPantalla.text = getString(R.string.Inventory_management)
+                    true
+                }
+
                 else -> false
             }
         }
