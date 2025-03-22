@@ -1,5 +1,6 @@
 package com.york_ruve.quickbitemaneger.di
 
+import com.york_ruve.quickbitemaneger.Data.Repository.dishIngredientsRepository
 import com.york_ruve.quickbitemaneger.Domain.Repository.IClientsRepository
 import com.york_ruve.quickbitemaneger.Domain.Repository.IDishIngredients
 import com.york_ruve.quickbitemaneger.Domain.Repository.IDishesRepository
@@ -23,6 +24,7 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.getDishIn
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.insertDishIngredientsUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.updateDishIngredientQuantityUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getAllIngredientsUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientsByDishIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Orders.deleteOrdersUseCase
@@ -95,18 +97,22 @@ object UseCaseModule {
         return insertDishIngredientsUseCase(dishRepository)
     }
 
+    @Provides
     fun providegetIngredientsWithQuantityUseCase(dishRepository: IDishesRepository): getIngredientsWithQuantityUseCase {
         return getIngredientsWithQuantityUseCase(dishRepository)
     }
 
+    @Provides
     fun providedeleteDishIngredientsByDishIdUseCase(dishRepository: IDishIngredients): deleteDishIngredientsByDishIdUseCase {
         return deleteDishIngredientsByDishIdUseCase(dishRepository)
     }
 
+    @Provides
     fun provideDeleteDishUseCase(dishRepository: IDishesRepository): deleteDishUseCase {
         return deleteDishUseCase(dishRepository)
     }
 
+    @Provides
     fun provideUpdateDishIngredientQuantity(dishRepository: IDishIngredients): updateDishIngredientQuantityUseCase{
         return updateDishIngredientQuantityUseCase(dishRepository)
     }
@@ -194,6 +200,11 @@ object UseCaseModule {
     @Provides
     fun providesGetDishIngredientsByIdUseCase(dishIngredientsRepository: IDishIngredients): getDishIngredientsByIdUseCase {
         return getDishIngredientsByIdUseCase(dishIngredientsRepository)
+    }
+
+    @Provides
+    fun providesGetIngredientsByIdUseCase(ingredientsRepository: IIngredientsRepository): getIngredientByIdUseCase{
+        return getIngredientByIdUseCase(ingredientsRepository)
     }
 
     //Client
