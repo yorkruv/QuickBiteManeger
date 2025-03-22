@@ -9,12 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientAdapter
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
+import com.york_ruve.quickbitemaneger.Presentation.utils.OnIngredientClickListener
 import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.FragmentInventoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class InventoryFragment : Fragment() {
+class InventoryFragment : Fragment(), OnIngredientClickListener {
 
     private lateinit var binding: FragmentInventoryBinding
 
@@ -39,6 +40,14 @@ class InventoryFragment : Fragment() {
             binding.rvIngredients.layoutManager = LinearLayoutManager(this.context)
             binding.rvIngredients.adapter = ingredientAdapter(it)
         }
+    }
+
+    override fun onEditIngredientClick(ingredientId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeleteIngredientClick(ingredientId: Int) {
+        TODO("Not yet implemented")
     }
 
 }
