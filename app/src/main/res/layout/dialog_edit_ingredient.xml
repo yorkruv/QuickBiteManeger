@@ -1,49 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:padding="20dp">
-
-    <TextView
-        android:id="@+id/tv_inventory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="@string/edit_ingredient"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/iv_close"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        style="@style/ic_color"
-        android:id="@+id/iv_close"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_close"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_inventory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_inventory"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:padding="10dp"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ly_inputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/tv_inventory">
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_inventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="@string/edit_ingredient"
+            android:textSize="24sp"/>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            style="@style/ic_color"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_close"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
+
+
         <TextView
             android:id="@+id/tv_nameIngredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/name"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_inventory" />
+            android:textSize="12sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/CustomEditText"
@@ -64,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/quantity"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/CustomEditText"
@@ -84,19 +77,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/unit"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_inventory" />
+            android:textSize="12sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/CustomEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nameIngredient">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_unit"
@@ -111,17 +97,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/critical_quantity"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@+id/ti_name" />
+            android:textSize="12sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/CustomEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_quatity">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_critical_quantity"
@@ -130,9 +111,9 @@
                 android:inputType="text"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_ingredient"
         style="@style/ThemeButtom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,4 +123,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ly_inputs"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
