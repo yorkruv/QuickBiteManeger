@@ -1,6 +1,7 @@
 package com.york_ruve.quickbitemaneger.Data.Dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -9,7 +10,7 @@ import com.york_ruve.quickbitemaneger.Data.Entities.ingredientEntity
 
 @Dao
 interface ingredientsDao {
-    @Query("SELECT * FROM ingredients")
+    @Query("SELECT * FROM ingredients ORDER BY ingredientId DESC")
     suspend fun getAllIngredients(): List<ingredientEntity>
 
     @Query("Update ingredients set stock = stock - :quantity where ingredientId = :ingredientId")
@@ -23,4 +24,7 @@ interface ingredientsDao {
 
     @Update
     suspend fun updateIngredient(ingredient: ingredientEntity)
+
+    @Delete
+    suspend fun deleteIngredient(ingredient: ingredientEntity)
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.york_ruve.quickbitemaneger.Data.Entities.DishIngredient
 import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.getDishIngredientsByIdUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.deleteIngredientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getAllIngredientsUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredientUseCase
@@ -25,7 +26,8 @@ class ingredientViewModel @Inject constructor(
     private val subtractIngredientUseCase: subtractIngredientUseCase,
     private val getDishIngredientsByIdUseCase: getDishIngredientsByIdUseCase,
     private val getIngredientByIdUseCase: getIngredientByIdUseCase,
-    private val updateIngredientUseCase: updateIngredientUseCase
+    private val updateIngredientUseCase: updateIngredientUseCase,
+    private val deleteIngredientUseCase: deleteIngredientUseCase
 ) : ViewModel() {
     private val _ingredients = MutableLiveData<List<Ingredients>>()
     val ingredients: LiveData<List<Ingredients>> = _ingredients
@@ -42,6 +44,7 @@ class ingredientViewModel @Inject constructor(
     fun insertIngredient(ingredients: Ingredients) {
         viewModelScope.launch {
             insertIngredientUseCase(ingredients)
+            getAllIngredients()
         }
     }
 
@@ -87,6 +90,14 @@ class ingredientViewModel @Inject constructor(
     fun updateIngredient(ingredient: Ingredients) {
         viewModelScope.launch {
             updateIngredientUseCase(ingredient)
+            getAllIngredients()
+        }
+    }
+
+    fun deleteIngredient(ingredient: Ingredients) {
+        viewModelScope.launch {
+            deleteIngredientUseCase(ingredient)
+            getAllIngredients()
         }
     }
 }

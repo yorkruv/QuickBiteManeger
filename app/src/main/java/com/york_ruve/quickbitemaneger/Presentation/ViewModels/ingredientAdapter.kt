@@ -31,7 +31,7 @@ class ingredientAdapter(private val ingredientlist:List<Ingredients>, private va
             onIngredientClickListener.onEditIngredientClick(ingredient)
         }
         holder.binding.ivDelete.setOnClickListener {
-            onIngredientClickListener.onDeleteIngredientClick(ingredient.id!!)
+            onIngredientClickListener.onDeleteIngredientClick(ingredient)
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.ui.window.Dialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,15 @@ class InventoryFragment : Fragment(), OnIngredientClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.btnAddIngredient.setOnClickListener {
+            val ingredient = Ingredients(null, "", 0.0, "", 0.0)
+            inventoryViewModel.insertIngredient(ingredient)
+            Toast.makeText(requireContext(), getString(R.string.ins_ingredients), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initRecyclerView() {
@@ -70,8 +80,8 @@ class InventoryFragment : Fragment(), OnIngredientClickListener {
         dialog.show()
     }
 
-    override fun onDeleteIngredientClick(ingredientId: Int) {
-        TODO("Not yet implemented")
+    override fun onDeleteIngredientClick(ingredient: Ingredients) {
+        inventoryViewModel.deleteIngredient(ingredient)
     }
 
 }

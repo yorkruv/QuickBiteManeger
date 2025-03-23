@@ -43,4 +43,9 @@ class ingredientsRepository @Inject constructor(private val ingredientsDao: ingr
         val Entity = ingredientEntity(ingredient.id,ingredient.name,ingredient.stock,ingredient.unit,ingredient.criticalQuantity)
         ingredientsDao.updateIngredient(Entity)
     }
+
+    override suspend fun deleteIngredient(ingredient: Ingredients) {
+        val Entity = ingredientEntity(ingredient.id,ingredient.name,ingredient.stock,ingredient.unit,ingredient.criticalQuantity)
+        ingredientsDao.deleteIngredient(Entity)
+    }
 }
