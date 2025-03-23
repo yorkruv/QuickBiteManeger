@@ -11,6 +11,7 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getAllIngredie
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.subtractIngredientUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.updateIngredientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,8 @@ class ingredientViewModel @Inject constructor(
     private val getAllIngredientsUseCase: getAllIngredientsUseCase,
     private val subtractIngredientUseCase: subtractIngredientUseCase,
     private val getDishIngredientsByIdUseCase: getDishIngredientsByIdUseCase,
-    private val getIngredientByIdUseCase: getIngredientByIdUseCase
+    private val getIngredientByIdUseCase: getIngredientByIdUseCase,
+    private val updateIngredientUseCase: updateIngredientUseCase
 ) : ViewModel() {
     private val _ingredients = MutableLiveData<List<Ingredients>>()
     val ingredients: LiveData<List<Ingredients>> = _ingredients
@@ -79,6 +81,12 @@ class ingredientViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 _ingredient.value = ingredient
             }
+        }
+    }
+
+    fun updateIngredient(ingredient: Ingredients) {
+        viewModelScope.launch {
+            updateIngredientUseCase(ingredient)
         }
     }
 }
