@@ -51,6 +51,22 @@ class InventoryFragment : Fragment(), OnIngredientClickListener {
         val binding = DialogEditIngredientBinding.inflate(layoutInflater)
         dialog.setContentView(binding.root)
 
+        binding.etName.setText(ingredient.name)
+        binding.etQuantity.setText(ingredient.stock.toString())
+        binding.etUnit.setText(ingredient.unit)
+        binding.etCriticalQuantity.setText(ingredient.criticalQuantity.toString())
+        binding.btnSaveIngredient.setOnClickListener {
+            val ingredient = Ingredients(
+                id = ingredient.id,
+                name = binding.etName.text.toString(),
+                stock = binding.etQuantity.text.toString().toDouble(),
+                unit = binding.etUnit.text.toString(),
+                criticalQuantity = binding.etCriticalQuantity.text.toString().toDouble()
+            )
+            inventoryViewModel.updateIngredient(ingredient)
+            dialog.dismiss()
+        }
+
         dialog.show()
     }
 
