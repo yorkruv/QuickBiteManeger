@@ -58,6 +58,7 @@
     <string name="edit_ingredient">Editar ingrediente</string>
     <string name="critical_quantity">cantidad critica</string>
     <string name="save_ingredients">guardar ingrediente</string>
+    <string name="ins_ingredients">Presiona editar para modificar el nuevo ingrediente</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
