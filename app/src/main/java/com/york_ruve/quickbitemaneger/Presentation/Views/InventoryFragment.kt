@@ -1,16 +1,20 @@
 package com.york_ruve.quickbitemaneger.Presentation.Views
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.window.Dialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientAdapter
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
 import com.york_ruve.quickbitemaneger.Presentation.utils.OnIngredientClickListener
 import com.york_ruve.quickbitemaneger.R
+import com.york_ruve.quickbitemaneger.databinding.DialogEditIngredientBinding
 import com.york_ruve.quickbitemaneger.databinding.FragmentInventoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,12 +42,16 @@ class InventoryFragment : Fragment(), OnIngredientClickListener {
         inventoryViewModel.getAllIngredients()
         inventoryViewModel.ingredients.observe(viewLifecycleOwner) {
             binding.rvIngredients.layoutManager = LinearLayoutManager(this.context)
-            binding.rvIngredients.adapter = ingredientAdapter(it)
+            binding.rvIngredients.adapter = ingredientAdapter(it,this)
         }
     }
 
-    override fun onEditIngredientClick(ingredientId: Int) {
-        TODO("Not yet implemented")
+    override fun onEditIngredientClick(ingredient: Ingredients) {
+        val dialog = Dialog(requireContext())
+        val binding = DialogEditIngredientBinding.inflate(layoutInflater)
+        dialog.setContentView(binding.root)
+
+        dialog.show()
     }
 
     override fun onDeleteIngredientClick(ingredientId: Int) {
