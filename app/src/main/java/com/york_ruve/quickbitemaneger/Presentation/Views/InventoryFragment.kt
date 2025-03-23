@@ -76,6 +76,9 @@ class InventoryFragment : Fragment(), OnIngredientClickListener {
             inventoryViewModel.updateIngredient(ingredient)
             dialog.dismiss()
         }
+        binding.ivClose.setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialog.show()
     }
