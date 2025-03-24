@@ -59,6 +59,9 @@
     <string name="critical_quantity">cantidad critica</string>
     <string name="save_ingredients">guardar ingrediente</string>
     <string name="ins_ingredients">Presiona editar para modificar el nuevo ingrediente</string>
+    <string name="Sales_management">Gestion de ventas</string>
+    <string name="Total_sold_today">Total vendido hoy:</string>
+    <string name="Average_ticket">Ticket promedio</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>

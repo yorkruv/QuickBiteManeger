@@ -60,6 +60,9 @@
     <string name="critical_quantity">critical quantity</string>
     <string name="save_ingredients">save ingredient</string>
     <string name="ins_ingredients">Press edit to modify the new Ingredient</string>
+    <string name="Sales_management">Sales management</string>
+    <string name="Total_sold_today">Total sold today</string>
+    <string name="Average_ticket">Average ticket</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
