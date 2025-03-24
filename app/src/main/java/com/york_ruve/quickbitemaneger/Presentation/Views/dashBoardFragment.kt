@@ -98,6 +98,14 @@ class dashBoardFragment : Fragment() {
                 .commit()
             (requireActivity() as MainActivity).updateToolbarTitleAndNavigation(requireContext().getString(R.string.Inventory_management), R.id.nav_inventory)
         }
+        binding.btnSales.setOnClickListener {
+            val fragmentSales = SalesFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.MainFragment, fragmentSales)
+                .addToBackStack(null)
+                .commit()
+            (requireActivity() as MainActivity).updateToolbarTitleAndNavigation(requireContext().getString(R.string.Sales_management), R.id.nav_inventory)
+        }
     }
 
 

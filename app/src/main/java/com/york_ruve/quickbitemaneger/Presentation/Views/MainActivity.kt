@@ -50,6 +50,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_sales -> {
+                    loadFragment(SalesFragment())
+                    binding.tvPantalla.text = getString(R.string.Sales_management)
+                    true
+                }
+
                 else -> false
             }
         }
