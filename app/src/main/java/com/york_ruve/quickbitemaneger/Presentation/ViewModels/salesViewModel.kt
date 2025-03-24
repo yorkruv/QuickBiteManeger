@@ -47,6 +47,12 @@ class salesViewModel @Inject constructor(
     private val _salesToDay = MutableLiveData<Int>()
     val salesToDay: LiveData<Int> = _salesToDay
 
+    private val _amountToDay = MutableLiveData<Double>()
+    val amountToDay: LiveData<Double> = _amountToDay
+
+    private val _averegeTicket = MutableLiveData<Double>()
+    val averegeTicket: LiveData<Double> = _averegeTicket
+
     init {
         loadSales()
     }
@@ -144,10 +150,14 @@ class salesViewModel @Inject constructor(
             val salesByDay = getSalesByDayUseCase()
             val localDate = LocalDate.now()
             _salesToDay.postValue(0)
+            _amountToDay.postValue(0.0)
+            _averegeTicket.postValue(0.0)
 
             for (sales in salesByDay) {
                 if (sales.saleDate == localDate.toString()) {
                     _salesToDay.postValue(sales.totalTransactions)
+                    _amountToDay.postValue(sales.totalSales)
+                    _averegeTicket.postValue(sales.totalSales / sales.totalTransactions)
                 }
             }
 
