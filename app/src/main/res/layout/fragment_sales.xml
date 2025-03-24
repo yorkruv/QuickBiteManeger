@@ -9,9 +9,12 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_soldToday"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cv_sales_day"
         app:layout_constraintEnd_toStartOf="@+id/cv_average_ticket"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,27 +22,29 @@
         app:strokeWidth="2dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_weight="2"
                     android:text="@string/Total_sold_today" />
 
                 <ImageView
                     style="@style/ic_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_money" />
             </LinearLayout>
 
@@ -56,9 +61,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_average_ticket"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cv_soldToday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cv_soldToday"
         app:layout_constraintTop_toTopOf="parent"
@@ -66,27 +72,29 @@
         app:strokeWidth="2dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:layout_weight="2"
                     android:text="@string/Average_ticket" />
 
                 <ImageView
                     style="@style/ic_color"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_weight="1"
                     android:src="@drawable/ticket_discount_svgrepo_com" />
             </LinearLayout>
 
@@ -105,12 +113,13 @@
         android:id="@+id/cv_sales_day"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cv_pending_sales"
-        app:layout_constraintEnd_toEndOf="@+id/cv_soldToday"
+        app:layout_constraintBottom_toTopOf="@+id/rv_sales"
+        app:layout_constraintEnd_toStartOf="@+id/cv_pending_sales"
         app:layout_constraintStart_toStartOf="@+id/cv_soldToday"
         app:layout_constraintTop_toBottomOf="@+id/cv_soldToday"
+        app:layout_goneMarginEnd="10dp"
         app:strokeColor="@color/grey"
         app:strokeWidth="2dp">
 
@@ -121,21 +130,23 @@
             android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="2"
                     android:text="@string/sales_day" />
 
                 <ImageView
                     style="@style/ic_color"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_ventas_dia" />
             </LinearLayout>
 
@@ -154,11 +165,11 @@
         android:id="@+id/cv_pending_sales"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cv_sales_day"
         app:layout_constraintEnd_toEndOf="@+id/cv_average_ticket"
-        app:layout_constraintStart_toStartOf="@+id/cv_average_ticket"
-        app:layout_constraintTop_toBottomOf="@+id/cv_average_ticket"
+        app:layout_constraintStart_toEndOf="@+id/cv_sales_day"
+        app:layout_constraintTop_toTopOf="@+id/cv_sales_day"
         app:strokeColor="@color/grey"
         app:strokeWidth="2dp">
 
@@ -169,21 +180,23 @@
             android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
                     android:text="@string/pending_orders" />
 
                 <ImageView
                     style="@style/ic_color"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_ventas_dia" />
             </LinearLayout>
 
@@ -206,6 +219,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cv_pending_sales"
         app:layout_constraintStart_toStartOf="@+id/cv_sales_day"
-        app:layout_constraintTop_toBottomOf="@+id/cv_pending_sales" />
+        app:layout_constraintTop_toBottomOf="@id/cv_sales_day" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
