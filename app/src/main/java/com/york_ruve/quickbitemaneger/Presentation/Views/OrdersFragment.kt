@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.york_ruve.quickbitemaneger.Data.Entities.OrdersDish
 import com.york_ruve.quickbitemaneger.Data.Entities.ordersEntity
+import com.york_ruve.quickbitemaneger.Data.Relations.IngredientsWithQuantity
 import com.york_ruve.quickbitemaneger.Data.Relations.dishWithQuantity
 import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
 import com.york_ruve.quickbitemaneger.Domain.Model.Dish
@@ -32,6 +33,7 @@ import com.york_ruve.quickbitemaneger.Presentation.ViewModels.addDishAdapter
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.clientsViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishOrderAdapter
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
+import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersAdapter
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.salesViewModel
@@ -55,6 +57,7 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
     private val clientsViewModel: clientsViewModel by viewModels()
     private val dishViewModel: dishViewModel by viewModels()
     private val salesViewModel: salesViewModel by viewModels()
+    private val ingredientViewModel: ingredientViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,7 +140,7 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
             )
             ordersViewModel.addOrder(orden)
             ordersViewModel.loadOrders()
-            ordersViewModel.orders.observe(viewLifecycleOwner){
+            ordersViewModel.orders.observe(viewLifecycleOwner) {
                 initRecyclerView()
             }
         }
@@ -193,18 +196,44 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                     total = orden.order.total
                 )
                 ordersViewModel.updateOrder(updatedOrder)
-                if(state == requireContext().getString(R.string.delivered)){
+
+                if (state == requireContext().getString(R.string.delivered)) {
                     clientsViewModel.loadClientByName(orden.order.cliente)
-                    clientsViewModel.client.observe(viewLifecycleOwner){
-                        val sale = Sales(null, orden.order.orderId!!, it?.id, LocalDate.now().toString(), orden.order.total)
+                    clientsViewModel.client.observe(viewLifecycleOwner) {
+                        val sale = Sales(
+                            null,
+                            orden.order.orderId!!,
+                            it?.id,
+                            LocalDate.now().toString(),
+                            orden.order.total
+                        )
                         salesViewModel.addSale(sale)
                     }
+
+                    ordersViewModel.loadDishWithQuantity(orden.order.orderId!!)
+                    ordersViewModel.dishWithQuantity.observe(viewLifecycleOwner) {
+                        for (dish in it) {
+                            var i = 0
+                            while (i < dish.quantity) {
+                                dishViewModel.getIngredientsWithQuantity(dish.dish.dishId!!)
+                                i+=1
+                            }
+                        }
+                    }
+                    dishViewModel.IngredientsWithQuantity.observe(viewLifecycleOwner) {
+                        for (ingredient in it) {
+                            ingredientViewModel.SubstractIngredientStock(
+                                ingredient.ingredient.ingredientId!!,
+                                ingredient.quantity
+                            )
+                        }
+                    }
+
                 }
                 initRecyclerView()
                 statedialog.dismiss()
             }
         }
-
         statedialog.show()
     }
 
@@ -212,7 +241,8 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
         val orderDialog = Dialog(requireContext())
         orderDialog.setContentView(R.layout.dialog_order)
 
-        val autoComplateClient = orderDialog.findViewById<AutoCompleteTextView>(R.id.actv_cliente)
+        val autoComplateClient =
+            orderDialog.findViewById<AutoCompleteTextView>(R.id.actv_cliente)
         val radioGroup = orderDialog.findViewById<RadioGroup>(R.id.rg_order_type)
         val tv_order_type = orderDialog.findViewById<TextView>(R.id.tv_order_type)
         val sp_tables = orderDialog.findViewById<Spinner>(R.id.sp_tables)
@@ -290,12 +320,12 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                     priceTotal += dish.dish.precio * dish.quantity
                 }
                 val updatedOrder = Orders(
-                id = orden.order.orderId,
-                fecha = orden.order.fecha,
-                cliente = autoComplateClient.text.toString(),
-                estado = orden.order.estado,
-                total = priceTotal
-            )
+                    id = orden.order.orderId,
+                    fecha = orden.order.fecha,
+                    cliente = autoComplateClient.text.toString(),
+                    estado = orden.order.estado,
+                    total = priceTotal
+                )
                 ordersViewModel.updateOrder(updatedOrder)
                 orderDialog.dismiss()
                 initRecyclerView()
@@ -331,4 +361,5 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
         ordersViewModel.loadDishWithQuantity(orderId)
         Toast.makeText(requireContext(), "Plato agregado", Toast.LENGTH_SHORT).show()
     }
+
 }
