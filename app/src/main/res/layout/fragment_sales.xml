@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:padding="10dp"
     tools:context=".Presentation.Views.SalesFragment">
 
     <com.google.android.material.card.MaterialCardView
@@ -33,7 +33,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/Total_sold_today" />
 
                 <ImageView
@@ -80,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/Average_ticket" />
 
                 <ImageView
@@ -107,6 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cv_pending_sales"
         app:layout_constraintEnd_toEndOf="@+id/cv_soldToday"
         app:layout_constraintStart_toStartOf="@+id/cv_soldToday"
         app:layout_constraintTop_toBottomOf="@+id/cv_soldToday"
@@ -128,8 +129,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="35dp"
-                    android:text="@string/sales_day"/>
+                    android:layout_marginEnd="25dp"
+                    android:text="@string/sales_day" />
 
                 <ImageView
                     style="@style/ic_color"
@@ -174,11 +175,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:textSize="13sp"
-                    android:text="@string/pending_orders"/>
+                    android:text="@string/pending_orders" />
 
                 <ImageView
                     style="@style/ic_color"
@@ -206,6 +206,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cv_pending_sales"
         app:layout_constraintStart_toStartOf="@+id/cv_sales_day"
-        app:layout_constraintTop_toBottomOf="@+id/cv_sales_day" />
+        app:layout_constraintTop_toBottomOf="@+id/cv_pending_sales" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
