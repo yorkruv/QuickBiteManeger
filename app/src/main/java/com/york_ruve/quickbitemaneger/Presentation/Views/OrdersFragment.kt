@@ -203,7 +203,7 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                         val sale = Sales(
                             null,
                             orden.order.orderId!!,
-                            it?.id,
+                            it?.nombre,
                             LocalDate.now().toString(),
                             orden.order.total
                         )
