@@ -21,7 +21,7 @@ import com.york_ruve.quickbitemaneger.Data.Entities.ordersEntity
     entities = [SalesEntity::class, ordersEntity::class, dishEntity::class,
         OrdersDish::class, ingredientEntity::class, ClientsEntity::class,
                DishIngredient::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class quickBiteDatabase:RoomDatabase(){

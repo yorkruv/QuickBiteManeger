@@ -5,7 +5,7 @@ import com.york_ruve.quickbitemaneger.Domain.Repository.IOrdersRepository
 import javax.inject.Inject
 
 class getAlldishesWithQuantityUseCase @Inject constructor(private val ordersRepository: IOrdersRepository) {
-    operator fun invoke(orderId: Int): List<dishWithQuantity> {
+    operator suspend fun invoke(orderId: Int): List<dishWithQuantity> {
         return ordersRepository.getAlldishesWithQuantity(orderId)
     }
 
