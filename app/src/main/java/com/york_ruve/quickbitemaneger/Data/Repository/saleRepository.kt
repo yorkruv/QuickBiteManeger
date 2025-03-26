@@ -16,7 +16,7 @@ class saleRepository @Inject constructor(private val salesDao: salesDao) : ISale
 
     override suspend fun getAllSales(): List<Sales> {
         return salesDao.getAllSales().map {
-            Sales(it.id, it.id_pedido, it.cliente, it.fecha, it.total)
+            Sales(it.id, it.id_pedido, it.id_cliente, it.fecha, it.total)
         }
     }
 
@@ -27,19 +27,19 @@ class saleRepository @Inject constructor(private val salesDao: salesDao) : ISale
 
     override suspend fun insertSales(sales: Sales) {
         val salesEntity =
-            SalesEntity(sales.id, sales.id_pedido, sales.cliente, sales.fecha, sales.total)
+            SalesEntity(sales.id, sales.id_pedido, sales.id_cliente, sales.fecha, sales.total)
         salesDao.insertSales(salesEntity)
     }
 
     override suspend fun updateSales(sales: Sales) {
         val salesEntity =
-            SalesEntity(sales.id, sales.id_pedido, sales.cliente, sales.fecha, sales.total)
+            SalesEntity(sales.id, sales.id_pedido, sales.id_cliente, sales.fecha, sales.total)
         salesDao.updateSales(salesEntity)
     }
 
     override suspend fun deleteSales(sales: Sales) {
         val salesEntity =
-            SalesEntity(sales.id, sales.id_pedido, sales.cliente, sales.fecha, sales.total)
+            SalesEntity(sales.id, sales.id_pedido, sales.id_cliente, sales.fecha, sales.total)
         salesDao.deleteSales(salesEntity)
 
     }

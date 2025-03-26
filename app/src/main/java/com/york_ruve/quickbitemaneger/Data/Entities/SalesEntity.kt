@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class SalesEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = 0,
     val id_pedido: Int = 0,
-    val cliente: String? = "",
+    val id_cliente: Int? = 0,
     val fecha: String,
     val total: Double = 0.0,
     val metodo_pago: String = ""

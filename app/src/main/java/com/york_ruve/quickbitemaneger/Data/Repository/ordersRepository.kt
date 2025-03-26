@@ -19,7 +19,7 @@ class ordersRepository @Inject constructor(private val ordersDao: ordersDao) : I
         return ordersDao.getAllOrdersWithDishes()
     }
 
-    override suspend fun getAlldishesWithQuantity(orderId: Int): List<dishWithQuantity> {
+    override fun getAlldishesWithQuantity(orderId: Int): List<dishWithQuantity> {
         return ordersDao.getAlldishesWithQuantity(orderId)
     }
 

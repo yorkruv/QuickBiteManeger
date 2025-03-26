@@ -198,14 +198,17 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                 ordersViewModel.updateOrder(updatedOrder)
 
                 if (state == requireContext().getString(R.string.delivered)) {
+                    clientsViewModel.loadClientByName(orden.order.cliente)
+                    clientsViewModel.client.observe(viewLifecycleOwner) {
                         val sale = Sales(
                             null,
                             orden.order.orderId!!,
-                            orden.order.cliente,
+                            it?.id,
                             LocalDate.now().toString(),
                             orden.order.total
                         )
                         salesViewModel.addSale(sale)
+                    }
 
                     ordersViewModel.loadDishWithQuantity(orden.order.orderId!!)
                     ordersViewModel.dishWithQuantity.observe(viewLifecycleOwner) {
