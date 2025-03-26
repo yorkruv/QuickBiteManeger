@@ -28,7 +28,7 @@ interface ordersDao {
     INNER JOIN OrdersDish od ON d.dishId = od.dishId
     WHERE od.orderId = :orderId
 """)
-    suspend fun getAlldishesWithQuantity(orderId: Int): List<dishWithQuantity>
+    fun getAlldishesWithQuantity(orderId: Int): List<dishWithQuantity>
 
     @Query("SELECT * FROM Orders WHERE orderId = :id")
     fun getOrderById(id: Int): ordersEntity
