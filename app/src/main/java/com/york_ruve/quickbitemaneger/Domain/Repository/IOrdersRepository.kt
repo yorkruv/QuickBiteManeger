@@ -7,7 +7,7 @@ import com.york_ruve.quickbitemaneger.Domain.Model.Orders
 interface IOrdersRepository {
     suspend fun getAllOrders(): List<Orders>
     suspend fun getOrdersWithDishes(): List<orderWithDishes>
-    fun getAlldishesWithQuantity(orderId: Int): List<dishWithQuantity>
+    suspend fun getAlldishesWithQuantity(orderId: Int): List<dishWithQuantity>
     suspend fun getOrderById(id: Int): Orders
     suspend fun getOrdersWithDishesById(id: Int): orderWithDishes
     suspend fun getOrdersByState(state: String): List<orderWithDishes>
