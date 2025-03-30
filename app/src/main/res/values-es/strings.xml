@@ -66,6 +66,9 @@
     <string name="Client_list">Lista de clientes</string>
     <string name="add_client">Añadir cliente</string>
     <string name="phone">Telefono</string>
+    <string name="edit_client">Editar cliente</string>
+    <string name="save_client">Guardar cliente</string>
+    <string name="ins_client">Presiona editar para modificar el nuevo cliente</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
