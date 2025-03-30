@@ -11,7 +11,7 @@ import com.york_ruve.quickbitemaneger.Data.Relations.ClientWithOrdersAndDishes
 
 @Dao
 interface clientsDao {
-    @Query("SELECT * FROM clients")
+    @Query("SELECT * FROM clients ORDER BY id DESC")
     suspend fun getAllClients(): List<ClientsEntity>
 
     @Transaction
