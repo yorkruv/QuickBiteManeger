@@ -62,6 +62,11 @@
     <string name="Sales_management">Gestion de ventas</string>
     <string name="Total_sold_today">Total vendido hoy:</string>
     <string name="Average_ticket">Ticket promedio</string>
+    <string name="Clients_management">Gestión de Clientes</string>
+    <string name="Client_list">Lista de clientes</string>
+    <string name="add_client">Añadir cliente</string>
+    <string name="address">Direccion</string>
+    <string name="phone">Telefono</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>

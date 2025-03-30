@@ -63,10 +63,16 @@
     <string name="Sales_management">Sales management</string>
     <string name="Total_sold_today">Total sold today</string>
     <string name="Average_ticket">Average ticket</string>
+    <string name="Clients_management">Clients Management</string>
+    <string name="Client_list">Client list</string>
+    <string name="add_client">Add client</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>
         <item>@string/year</item>
     </string-array>
+
 </resources>
