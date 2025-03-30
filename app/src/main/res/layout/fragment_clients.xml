@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tv_listDihs"
+                android:id="@+id/tv_listClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -28,10 +28,10 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_addDish"/>
+                app:layout_constraintEnd_toStartOf="@+id/btn_addClient"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_addDish"
+                android:id="@+id/btn_addClient"
                 style="@style/ThemeButtom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,17 +39,17 @@
                 android:text="@string/add_client"
                 app:icon="@drawable/ic_plus"
                 app:iconSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_listDihs"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_listClient"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_listDihs"
-                app:layout_constraintTop_toTopOf="@+id/tv_listDihs" />
+                app:layout_constraintStart_toEndOf="@+id/tv_listClient"
+                app:layout_constraintTop_toTopOf="@+id/tv_listClient" />
 
             <LinearLayout
                 android:id="@+id/ly_titulos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-                app:layout_constraintTop_toBottomOf="@+id/btn_addDish"
+                app:layout_constraintTop_toBottomOf="@+id/btn_addClient"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
