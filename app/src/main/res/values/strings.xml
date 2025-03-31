@@ -72,6 +72,8 @@
     <string name="email" translatable="false">Email</string>
     <string name="ins_client">Press edit to modify the new Client</string>
     <string name="options">Options</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="language">Language</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
