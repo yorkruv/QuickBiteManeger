@@ -69,6 +69,7 @@
     <string name="edit_client">Editar cliente</string>
     <string name="save_client">Guardar cliente</string>
     <string name="ins_client">Presiona editar para modificar el nuevo cliente</string>
+    <string name="options">Opciones</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>

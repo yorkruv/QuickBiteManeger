@@ -71,6 +71,7 @@
     <string name="save_client">Save client</string>
     <string name="email" translatable="false">Email</string>
     <string name="ins_client">Press edit to modify the new Client</string>
+    <string name="options">Options</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
