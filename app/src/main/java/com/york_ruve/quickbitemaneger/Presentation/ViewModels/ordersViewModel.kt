@@ -1,6 +1,8 @@
 package com.york_ruve.quickbitemaneger.Presentation.ViewModels
 
 import android.app.Application
+import android.content.Context
+import android.content.res.Configuration
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +29,7 @@ import com.york_ruve.quickbitemaneger.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,6 +64,20 @@ class ordersViewModel @Inject constructor(
 
     private val _dishWithQuantity = MutableLiveData<List<dishWithQuantity>>()
     val dishWithQuantity: LiveData<List<dishWithQuantity>> = _dishWithQuantity
+
+    private val localizedContext: Context
+
+    init {
+        // Obtener el idioma guardado en preferencias
+        val sharedPreferences = application.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val languageCode = sharedPreferences.getString("language", "en") ?: "en"
+
+        // Crear contexto con el idioma configurado
+        val locale = Locale(languageCode)
+        val config = Configuration(application.resources.configuration)
+        config.setLocale(locale)
+        localizedContext = application.createConfigurationContext(config)
+    }
 
 
     fun loadOrders() {
@@ -129,14 +146,13 @@ class ordersViewModel @Inject constructor(
     }
 
     fun getOrdersByState(state: String) {
+        Log.d("TAG", localizedContext.getString(R.string.pending))
         viewModelScope.launch(Dispatchers.IO) {
             val orders = getOrdersByStateUseCase(state)
             _orderDish.postValue(orders)
-            if (state == getApplication<Application>().getString(R.string.pending)) {
-                var aux = 0
-                for (order in orders) {
-                    aux += 1
-                }
+            if (state == localizedContext.getString(R.string.pending)) {
+
+                var aux = orders.size
                 _ordersPending.postValue(aux)
             }
         }
