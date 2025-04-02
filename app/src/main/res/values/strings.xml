@@ -74,11 +74,17 @@
     <string name="options">Options</string>
     <string name="dark_theme">Dark theme</string>
     <string name="language">Language</string>
+    <string name="n_tables">N° tables</string>
 
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>
         <item>@string/year</item>
+    </string-array>
+
+    <string-array name="list_lenguage">
+        <item>English</item>
+        <item>Español</item>
     </string-array>
 
 </resources>
