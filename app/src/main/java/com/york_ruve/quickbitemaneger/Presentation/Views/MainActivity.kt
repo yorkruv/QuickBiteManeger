@@ -17,6 +17,7 @@ import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.ActivityMainBinding
 import com.york_ruve.quickbitemaneger.databinding.PopupMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -29,7 +30,17 @@ class MainActivity : AppCompatActivity() {
         loadFragment(dashBoardFragment())
         setListeners()
         setNightMode()
+        applyLanguage()
+    }
 
+    private fun applyLanguage() {
+        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
+        val lenguage = sharedPreferences.getString("language", "en")
+        val config = resources.configuration
+        val locale = Locale(lenguage)
+        Locale.setDefault(locale)
+        config.setLocale(locale)
+        applicationContext.createConfigurationContext(config)
     }
 
     private fun setNightMode() {
