@@ -146,7 +146,6 @@ class ordersViewModel @Inject constructor(
     }
 
     fun getOrdersByState(state: String) {
-        Log.d("TAG", localizedContext.getString(R.string.pending))
         viewModelScope.launch(Dispatchers.IO) {
             val orders = getOrdersByStateUseCase(state)
             _orderDish.postValue(orders)
