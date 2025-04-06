@@ -3,6 +3,8 @@ package com.york_ruve.quickbitemaneger.Presentation.Views
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -91,6 +93,20 @@ class OptionsFragment : Fragment() {
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
+        binding.etNTable.setText(SharedPreferences.getInt("n_tables", 0).toString())
+        binding.etNTable.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                val nTables = p0.toString().toIntOrNull() ?: 0
+                val editor = SharedPreferences.edit()
+                editor.putInt("n_tables", nTables)
+                editor.apply()
+            }
+
+        })
     }
 
     private fun setLocate(selectedlenguage: String) {
