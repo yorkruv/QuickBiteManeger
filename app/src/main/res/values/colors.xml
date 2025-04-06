@@ -11,4 +11,5 @@
     <color name="greenReady">#22C55E</color>
     <color name="grayDelivered">#6B7280</color>
     <color name="redCancelled">#D91212</color>
+    <color name="popup_backgraund">#FFFFFF</color>
 </resources>
