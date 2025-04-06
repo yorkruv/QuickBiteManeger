@@ -1,6 +1,7 @@
 package com.york_ruve.quickbitemaneger.Presentation.Views
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -276,7 +277,13 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
             }
         }
 
-        val mesas = listOf("Mesa 1", "Mesa 2", "Mesa 3")
+        val mesas:MutableList<String> = mutableListOf()
+        val SharedPreferences =
+            requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val n_mesa = SharedPreferences.getInt("n_tables", 0)
+        for (i in 1..n_mesa) {
+            mesas.add("Mesa $i")
+        }
         val adapter = ArrayAdapter(
             requireContext(),
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
