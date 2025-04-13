@@ -210,6 +210,7 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                         )
                         salesViewModel.addSale(sale)
                     }
+                    clientsViewModel.client.removeObservers(viewLifecycleOwner)
 
                     ordersViewModel.loadDishWithQuantity(orden.order.orderId!!)
                     ordersViewModel.dishWithQuantity.observe(viewLifecycleOwner) {
@@ -221,6 +222,7 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                             }
                         }
                     }
+                    ordersViewModel.dishWithQuantity.removeObservers(viewLifecycleOwner)
                     dishViewModel.IngredientsWithQuantity.observe(viewLifecycleOwner) {
                         for (ingredient in it) {
                             ingredientViewModel.SubstractIngredientStock(
@@ -229,9 +231,10 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                             )
                         }
                     }
+                    dishViewModel.IngredientsWithQuantity.removeObservers(viewLifecycleOwner)
 
                 }
-                initRecyclerView()
+                ordersViewModel.getOrdersDish()
                 statedialog.dismiss()
             }
         }
