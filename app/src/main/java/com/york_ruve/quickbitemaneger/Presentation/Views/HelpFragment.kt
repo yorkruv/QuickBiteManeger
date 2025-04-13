@@ -1,5 +1,7 @@
 package com.york_ruve.quickbitemaneger.Presentation.Views
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -57,6 +59,14 @@ class HelpFragment : Fragment() {
         }
         binding.lyHelp10.setOnClickListener {
             toggleHelp(binding.tvHelp10, binding.ivHelp10)
+        }
+        binding.btnContact.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                data = Uri.parse("mailto:${requireContext().getString(R.string.support_email)}")
+                putExtra(Intent.EXTRA_SUBJECT, requireContext().getString(R.string.email_subject))
+                putExtra(Intent.EXTRA_TEXT, requireContext().getString(R.string.email_body))
+            }
+            startActivity(Intent.createChooser(intent, requireContext().getString(R.string.send_email)))
         }
     }
 
