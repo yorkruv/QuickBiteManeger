@@ -73,6 +73,7 @@
     <string name="dark_theme">Tema oscuro</string>
     <string name="language">Idioma</string>
     <string name="n_tables">N° de mesas</string>
+    <string name="help">Ayuda</string>
     <string name="help_center">Centro de ayuda</string>
     <string name="FAQ1">¿Cómo creo una nueva orden?</string>
     <string name="FAQ1.1">Presione el botón “+” en la pantalla principal. Luego seleccione los productos, cliente y presione “Guardar” para registrar la orden.</string>
@@ -88,13 +89,18 @@
     <string name="FAQ6_1">Rojo: stock crítico, Verde: stock suficiente.</string>
     <string name="FAQ7">¿Cómo veo mis ventas diarias?</string>
     <string name="FAQ7_1">En la sección Ventas puedes ver un resumen por día.</string>
-    <string name="FAQ8">¿Puedo personalizar los platos?</string>
-    <string name="FAQ8_1">Actualmente no, pero está planeado para futuras versiones.</string>
+    <string name="FAQ8">¿Como cambio la cantidad de mesas?</string>
+    <string name="FAQ8_1">Ve a Opciones &gt; N° de mesas, introduzca la cantidad que desee, cuando vaya a elegir la mesa de la orden le mostrara la cantidad de mesas que haya ingresado.</string>
     <string name="FAQ9">¿Dónde puedo ver el ranking de productos?</string>
     <string name="FAQ9_1">Al final de la pantalla de Ventas verás los más vendidos.</string>
     <string name="FAQ10">¿Puedo eliminar un plato?</string>
     <string name="FAQ10_1">Sí, desde el menú de cada plato puedes eliminarlo.</string>
-
+    <string name="need_help">¿Necesitas ayuda?</string>
+    <string name="need_help_text">Si no encuentras la respuesta que buscas, no dudes en contactarnos directamente.</string>
+    <string name="Contact_support">Contactar soporte</string>
+    <string name="email_subject">Ayuda con la aplicación QuickBite Manager</string>
+    <string name="email_body">Hola, necesito ayuda con lo siguiente:</string>
+    <string name="send_email">Enviar correo...</string>
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>

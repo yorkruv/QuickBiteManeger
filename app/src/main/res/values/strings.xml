@@ -75,6 +75,7 @@
     <string name="dark_theme">Dark theme</string>
     <string name="language">Language</string>
     <string name="n_tables">N° tables</string>
+    <string name="help">Help</string>
     <string name="help_center">Help Center</string>
     <string name="FAQ1">How do I create a new order?</string>
     <string name="FAQ1.1">Press the “+” button on the main screen. Then select the products, customer, and press “Save” to register the order.</string>
@@ -84,18 +85,25 @@
     <string name="FAQ3_1">Desde el menú Opciones activa el modo oscuro.</string>
     <string name="FAQ4">How do I change the app language?</string>
     <string name="FAQ4_1">From Options, select your preferred language.</string>
-    <string name="FAQ5">¿Cómo agrego ingredientes?</string>
-    <string name="FAQ5_1">Ve a Inventario y presiona “+” para añadir un nuevo ingrediente.</string>
+    <string name="FAQ5">How do I add ingredients?</string>
+    <string name="FAQ5_1">Go to Inventory and tap “+” to add a new one.</string>
     <string name="FAQ6">What do the stock colors mean?</string>
     <string name="FAQ6_1">Red: critical, Green: enough stock.</string>
     <string name="FAQ7">Where can I see my daily sales?</string>
     <string name="FAQ7_1">In the Sales screen you’ll find a daily summary.</string>
-    <string name="FAQ8">Can I customize dishes?</string>
+    <string name="FAQ8">How do I change the number of tables?</string>
     <string name="FAQ8_1">Not yet, but it’s planned for future updates.</string>
     <string name="FAQ9">Where can I see the product ranking?</string>
     <string name="FAQ9_1">At the bottom of the Sales screen.</string>
     <string name="FAQ10">Can I delete a dish?</string>
     <string name="FAQ10_1">Yes, tap the menu on each dish to delete it.</string>
+    <string name="need_help">You need help?</string>
+    <string name="need_help_text">If you can’t find the answer you’re looking for, don’t hesitate to contact us directly.</string>
+    <string name="Contact_support">Contact support</string>
+    <string name="support_email" translatable="false">jorgeruadev@gmail.com</string>
+    <string name="email_subject">Help with the QuickBite Manager app</string>
+    <string name="email_body">Hello, I need help with the following:</string>
+    <string name="send_email">Send email...</string>
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>
