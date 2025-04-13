@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             popupWindow.dismiss()
         }
         binding.tvHelp.setOnClickListener {
-            Toast.makeText(this, "Opción 2 seleccionada", Toast.LENGTH_SHORT).show()
+            loadFragment(HelpFragment())
             popupWindow.dismiss()
         }
         popupWindow.showAsDropDown(view,0,10)
