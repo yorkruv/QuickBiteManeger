@@ -160,7 +160,6 @@ class ordersViewModel @Inject constructor(
     fun getOrdersDish(){
         viewModelScope.launch(Dispatchers.IO) {
             val orderDish = getAllOrdersWithDishesUseCase()
-            Log.d("TAG", "getOrdersDish: $orderDish")
             _orderDish.postValue(orderDish)
         }
     }

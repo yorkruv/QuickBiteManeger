@@ -17,7 +17,6 @@ import com.google.android.gms.ads.appopen.AppOpenAd
 import dagger.hilt.android.HiltAndroidApp
 import java.util.Date
 
-private const val LOG_TAG = "AppOpenAdManager"
 private const val AD_UNIT_ID = "ca-app-pub-8245751984248398/3610163245"
 
 @HiltAndroidApp
@@ -70,7 +69,6 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
 
                     override fun onAdLoaded(ad: AppOpenAd) {
                         // Called when an app open ad has loaded.
-                        Log.d(LOG_TAG, "Ad was loaded.")
                         appOpenAd = ad
                         isLoadingAd = false
                         loadTime = Date().time
@@ -78,7 +76,6 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
 
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         // Called when an app open ad has failed to load.
-                        Log.d(LOG_TAG, loadAdError.message)
                         isLoadingAd = false;
                     }
                 })
@@ -95,13 +92,11 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
             onShowAdCompleteListener: OnShowAdCompleteListener) {
             // If the app open ad is already showing, do not show the ad again.
             if (isShowingAd) {
-                Log.d(LOG_TAG, "The app open ad is already showing.")
                 return
             }
 
             // If the app open ad is not available yet, invoke the callback then load the ad.
             if (!isAdAvailable()) {
-                Log.d(LOG_TAG, "The app open ad is not ready yet.")
                 onShowAdCompleteListener.onShowAdComplete()
                 loadAd(activity)
                 return
@@ -113,7 +108,6 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
                     override fun onAdDismissedFullScreenContent() {
                         // Called when full screen content is dismissed.
                         // Set the reference to null so isAdAvailable() returns false.
-                        Log.d(LOG_TAG, "Ad dismissed fullscreen content.")
                         appOpenAd = null
                         isShowingAd = false
 
@@ -124,7 +118,6 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                         // Called when fullscreen content failed to show.
                         // Set the reference to null so isAdAvailable() returns false.
-                        Log.d(LOG_TAG, adError.message)
                         appOpenAd = null
                         isShowingAd = false
 
@@ -134,7 +127,6 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
 
                     override fun onAdShowedFullScreenContent() {
                         // Called when fullscreen content is shown.
-                        Log.d(LOG_TAG, "Ad showed fullscreen content.")
                     }
                 })
             isShowingAd = true

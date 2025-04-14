@@ -160,7 +160,6 @@ class dashBoardFragment : Fragment() {
         }
         dishViewModel.IngredientsByDishId.observe(viewLifecycleOwner) { dishWithIngredients ->
             if (dishWithIngredients != null) {
-                android.util.Log.d("dishIngredients", "$dishWithIngredients")
                 val ingredientList = dishWithIngredients.ingredients.map { it.ingredientId }
                 ingredientViewModel.getDishIngredientsById(
                     dishWithIngredients.dish.dishId,
@@ -170,10 +169,7 @@ class dashBoardFragment : Fragment() {
         }
         ingredientViewModel.dishIngredients.observe(viewLifecycleOwner) { dishIngredientsList ->
             dishIngredientsList.forEach { dishIngredient ->
-                Log.d("dishWithQuantity", "$dishIngredient")
                 val quantity = dishIngredient.quantity
-                Log.d("Ingrediente ${dishIngredient.ingredientId}", "Cantidad: $quantity")
-
                 ingredientViewModel.SubstractIngredientStock(dishIngredient.ingredientId, quantity)
             }
         }
