@@ -18,6 +18,7 @@ import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 import kotlin.coroutines.coroutineContext
 
 private const val LOG_TAG = "AppOpenAdManager"
@@ -56,6 +57,7 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
         private var appOpenAd: AppOpenAd? = null
         private var isLoadingAd = false
         var isShowingAd = false
+        private var loadTime: Long = 0;
 
         /** Request an ad. */
         fun loadAd(context: Context) {
@@ -75,6 +77,7 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
                         Log.d(LOG_TAG, "Ad was loaded.")
                         appOpenAd = ad
                         isLoadingAd = false
+                        loadTime = Date().time
                     }
 
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
@@ -83,6 +86,12 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
                         isLoadingAd = false;
                     }
                 })
+        }
+
+        private fun wasLoadTimeLessThanNHoursAgo(numHours: Long): Boolean {
+            val dateDifference: Long = Date().time - loadTime
+            val numMilliSecondsPerHour: Long = 3600000
+            return dateDifference < numMilliSecondsPerHour * numHours
         }
 
         fun showAdIfAvailable(
@@ -138,7 +147,7 @@ class MyApplication : Application(), Application.ActivityLifecycleCallbacks, Def
 
         /** Check if ad exists and can be shown. */
         private fun isAdAvailable(): Boolean {
-            return appOpenAd != null
+            return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4)
         }
     }
 
