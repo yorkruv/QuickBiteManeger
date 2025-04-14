@@ -16,24 +16,16 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.york_ruve.quickbitemaneger.Data.Entities.DishIngredient
-import com.york_ruve.quickbitemaneger.Data.Entities.OrdersDish
-import com.york_ruve.quickbitemaneger.Data.Relations.orderWithDishes
-import com.york_ruve.quickbitemaneger.Domain.Model.Clients
-import com.york_ruve.quickbitemaneger.Domain.Model.Dish
-import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
-import com.york_ruve.quickbitemaneger.Domain.Model.Orders
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.clientsViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.dishViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ordersViewModel
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.salesViewModel
 import com.york_ruve.quickbitemaneger.Presentation.utils.DateAxisFormatter
-import com.york_ruve.quickbitemaneger.Presentation.utils.OnOrderClickListener
 import com.york_ruve.quickbitemaneger.R
-import com.york_ruve.quickbitemaneger.databinding.ActivityMainBinding
 import com.york_ruve.quickbitemaneger.databinding.FragmentDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import com.york_ruve.quickbitemaneger.Presentation.utils.LocateHelper
 
 
 @AndroidEntryPoint
@@ -62,7 +54,9 @@ class dashBoardFragment : Fragment() {
     }
 
     private fun init() {
-        ordersViewModel.getOrdersByState(requireContext().getString(R.string.pending))
+        val locateHelper = LocateHelper()
+        val newContext = locateHelper.setLocale(requireContext(), locateHelper.getSavedLanguage(requireContext()))
+        ordersViewModel.getOrdersByState(newContext.getString(R.string.pending))
         ingredientViewModel.getAllIngredients()
     }
 
@@ -166,7 +160,6 @@ class dashBoardFragment : Fragment() {
         }
         dishViewModel.IngredientsByDishId.observe(viewLifecycleOwner) { dishWithIngredients ->
             if (dishWithIngredients != null) {
-                android.util.Log.d("dishIngredients", "$dishWithIngredients")
                 val ingredientList = dishWithIngredients.ingredients.map { it.ingredientId }
                 ingredientViewModel.getDishIngredientsById(
                     dishWithIngredients.dish.dishId,
@@ -176,10 +169,7 @@ class dashBoardFragment : Fragment() {
         }
         ingredientViewModel.dishIngredients.observe(viewLifecycleOwner) { dishIngredientsList ->
             dishIngredientsList.forEach { dishIngredient ->
-                Log.d("dishWithQuantity", "$dishIngredient")
                 val quantity = dishIngredient.quantity
-                Log.d("Ingrediente ${dishIngredient.ingredientId}", "Cantidad: $quantity")
-
                 ingredientViewModel.SubstractIngredientStock(dishIngredient.ingredientId, quantity)
             }
         }

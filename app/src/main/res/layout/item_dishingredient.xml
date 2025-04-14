@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="nombre de ingrediente"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_weight="3"/>
 
     <EditText

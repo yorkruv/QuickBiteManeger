@@ -1,6 +1,12 @@
 package com.york_ruve.quickbitemaneger.Presentation.Views
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -9,7 +15,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.ActivityMainBinding
+import com.york_ruve.quickbitemaneger.databinding.PopupMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -21,7 +29,29 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         loadFragment(dashBoardFragment())
         setListeners()
+        setNightMode()
+        applyLanguage()
+    }
 
+    private fun applyLanguage() {
+        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
+        val lenguage = sharedPreferences.getString("language", "en")
+        val config = resources.configuration
+        val locale = Locale(lenguage)
+        Locale.setDefault(locale)
+        config.setLocale(locale)
+        applicationContext.createConfigurationContext(config)
+    }
+
+    private fun setNightMode() {
+        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
+        val isNightMode = sharedPreferences.getBoolean("night_mode", false)
+
+        if (isNightMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     private fun setListeners() {
@@ -59,7 +89,32 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        binding.ivPerfil.setOnClickListener {
+            showPopup(it)
+        }
     }
+
+    private fun showPopup(view: View?) {
+        val inflater = LayoutInflater.from(this)
+        val binding = PopupMenuBinding.inflate(layoutInflater)
+        val popupView = binding.root
+        val popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true)
+
+        binding.tvOption.setOnClickListener {
+            loadFragment(OptionsFragment())
+            popupWindow.dismiss()
+        }
+        binding.tvHelp.setOnClickListener {
+            loadFragment(HelpFragment())
+            popupWindow.dismiss()
+        }
+        popupWindow.showAsDropDown(view,0,10)
+    }
+
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.MainFragment.id, fragment)
