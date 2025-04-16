@@ -16,6 +16,9 @@ interface ingredientsDao {
     @Query("Update ingredients set stock = stock - :quantity where ingredientId = :ingredientId")
     suspend fun updateIngredientStock(ingredientId: Int?, quantity: Double?)
 
+    @Query("SELECT * FROM ingredients WHERE stock <= criticalQuantity")
+    suspend fun getCriticalIngredients(): List<ingredientEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIngredient(ingredient: ingredientEntity)
 

@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
@@ -26,6 +27,7 @@ import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.FragmentDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.york_ruve.quickbitemaneger.Presentation.utils.LocateHelper
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -50,6 +52,10 @@ class dashBoardFragment : Fragment() {
         setUpSpinner()
         viewObservers()
         setListeners()
+        viewLifecycleOwner.lifecycleScope.launch {
+            val listCritical = ingredientViewModel.getCriticalIngredients()
+            Log.d("criticalIngredients", "$listCritical")
+        }
 
     }
 

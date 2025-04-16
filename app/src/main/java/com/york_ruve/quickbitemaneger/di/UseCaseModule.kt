@@ -25,6 +25,7 @@ import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.insertDis
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.updateDishIngredientQuantityUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.deleteIngredientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getAllIngredientsUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getCriticalIngredientsUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientsByDishIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredientUseCase
@@ -217,6 +218,11 @@ object UseCaseModule {
     @Provides
     fun provideDeleteIngredientUseCase(ingredientsRepository: IIngredientsRepository):deleteIngredientUseCase{
         return deleteIngredientUseCase(ingredientsRepository)
+    }
+
+    @Provides
+    fun provideGetCriticalIngredients(ingredientsRepository: IIngredientsRepository): getCriticalIngredientsUseCase {
+        return getCriticalIngredientsUseCase(ingredientsRepository)
     }
     //Client
     @Provides
