@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ordersViewModel @Inject constructor(
-    application:Application,
+    application: Application,
     private val getAllOrdersUseCase: getAllOrdersUseCase,
     private val insertOrderUseCase: insertOrdersUseCase,
     private val updateOrderUseCase: updateOrdersUseCase,
@@ -57,7 +57,7 @@ class ordersViewModel @Inject constructor(
     val orderDish: LiveData<List<orderWithDishes>> = _orderDish
 
     private val _orderDishById = MutableLiveData<orderWithDishes>()
-    val orderDishById:LiveData<orderWithDishes> = _orderDishById
+    val orderDishById: LiveData<orderWithDishes> = _orderDishById
 
     private val _ordersPending = MutableLiveData<Int>()
     val ordersPending: LiveData<Int> = _ordersPending
@@ -88,14 +88,14 @@ class ordersViewModel @Inject constructor(
 
     }
 
-    fun loadOrderById(id:Int){
+    fun loadOrderById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val order = getOrdersByIdUseCase(id)
             _order.postValue(order)
         }
     }
 
-    fun loadOrderDishById(id: Int){
+    fun loadOrderDishById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val orderDish = getOrdersWithDishesById(id)
             _orderDishById.postValue(orderDish)
@@ -107,6 +107,11 @@ class ordersViewModel @Inject constructor(
             val dishWithQuantity = getAllDishesWithQuantityUseCase(orderId)
             _dishWithQuantity.postValue(dishWithQuantity)
         }
+    }
+
+    suspend fun loadDishWithQuantitySuspend(orderId: Int): List<dishWithQuantity> {
+        val dishWithQuantity = getAllDishesWithQuantityUseCase(orderId)
+        return dishWithQuantity
     }
 
     fun addOrder(order: Orders) {
@@ -157,7 +162,7 @@ class ordersViewModel @Inject constructor(
         }
     }
 
-    fun getOrdersDish(){
+    fun getOrdersDish() {
         viewModelScope.launch(Dispatchers.IO) {
             val orderDish = getAllOrdersWithDishesUseCase()
             Log.d("TAG", "getOrdersDish: $orderDish")
