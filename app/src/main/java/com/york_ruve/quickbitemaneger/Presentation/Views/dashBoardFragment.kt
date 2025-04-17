@@ -27,6 +27,7 @@ import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.FragmentDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.york_ruve.quickbitemaneger.Presentation.utils.LocateHelper
+import com.york_ruve.quickbitemaneger.Presentation.utils.NotificationHelper
 import kotlinx.coroutines.launch
 
 
@@ -55,6 +56,13 @@ class dashBoardFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             val listCritical = ingredientViewModel.getCriticalIngredients()
             Log.d("criticalIngredients", "$listCritical")
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            val criticalList = ingredientViewModel.getCriticalIngredients()
+            if (criticalList.isNotEmpty()) {
+                NotificationHelper.createNotificationChannel(requireContext())
+                NotificationHelper.showCriticalIngredientNotification(requireContext(), criticalList)
+            }
         }
 
     }

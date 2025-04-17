@@ -1,6 +1,8 @@
 package com.york_ruve.quickbitemaneger.Presentation.Views
 
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,8 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -31,6 +35,21 @@ class MainActivity : AppCompatActivity() {
         setListeners()
         setNightMode()
         applyLanguage()
+        Permissions()
+    }
+
+    private fun Permissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(
+                    this, // o activity si estás en un Activity
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    1001 // Código de solicitud
+                )
+            }
+        }
     }
 
     private fun applyLanguage() {
