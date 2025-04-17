@@ -104,6 +104,9 @@
     <string name="email_subject">Help with the QuickBite Manager app</string>
     <string name="email_body">Hello, I need help with the following:</string>
     <string name="send_email">Send email...</string>
+    <string name="tittle_notification_critical">Ingredients at critical levels!</string>
+    <string name="stock_critical_message">%1$d ingredients are below stock level</string>
+
     <string-array name="rango_de_ventas">
         <item>@string/day</item>
         <item>@string/month</item>

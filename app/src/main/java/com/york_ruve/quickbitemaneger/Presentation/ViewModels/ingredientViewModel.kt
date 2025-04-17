@@ -9,6 +9,7 @@ import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.DishIngredients.getDishIngredientsByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.deleteIngredientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getAllIngredientsUseCase
+import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getCriticalIngredientsUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.getIngredientByIdUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.insertIngredientUseCase
 import com.york_ruve.quickbitemaneger.Domain.UsesCases.Ingredient.subtractIngredientUseCase
@@ -27,7 +28,8 @@ class ingredientViewModel @Inject constructor(
     private val getDishIngredientsByIdUseCase: getDishIngredientsByIdUseCase,
     private val getIngredientByIdUseCase: getIngredientByIdUseCase,
     private val updateIngredientUseCase: updateIngredientUseCase,
-    private val deleteIngredientUseCase: deleteIngredientUseCase
+    private val deleteIngredientUseCase: deleteIngredientUseCase,
+    private val getCriticalIngredientsUseCase: getCriticalIngredientsUseCase
 ) : ViewModel() {
     private val _ingredients = MutableLiveData<List<Ingredients>>()
     val ingredients: LiveData<List<Ingredients>> = _ingredients
@@ -99,5 +101,9 @@ class ingredientViewModel @Inject constructor(
             deleteIngredientUseCase(ingredient)
             getAllIngredients()
         }
+    }
+
+    suspend fun getCriticalIngredients(): List<Ingredients>{
+        return getCriticalIngredientsUseCase()
     }
 }

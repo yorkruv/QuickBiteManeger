@@ -23,6 +23,18 @@ class ingredientsRepository @Inject constructor(private val ingredientsDao: ingr
         ingredientsDao.updateIngredientStock(ingredientId, quantity)
     }
 
+    override suspend fun getCriticalIngredients(): List<Ingredients> {
+        return ingredientsDao.getCriticalIngredients().map {
+            Ingredients(
+                it.ingredientId,
+                it.nombre,
+                it.stock,
+                it.unidad,
+                it.criticalQuantity
+            )
+        }
+    }
+
     override suspend fun insertIngredient(ingredient: Ingredients) {
         val Entity = ingredientEntity(ingredient.id,ingredient.name,ingredient.stock,ingredient.unit,ingredient.criticalQuantity)
         ingredientsDao.insertIngredient(Entity)
