@@ -57,13 +57,7 @@ class dashBoardFragment : Fragment() {
             val listCritical = ingredientViewModel.getCriticalIngredients()
             Log.d("criticalIngredients", "$listCritical")
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            val criticalList = ingredientViewModel.getCriticalIngredients()
-            if (criticalList.isNotEmpty()) {
-                NotificationHelper.createNotificationChannel(requireContext())
-                NotificationHelper.showCriticalIngredientNotification(requireContext(), criticalList)
-            }
-        }
+
 
     }
 

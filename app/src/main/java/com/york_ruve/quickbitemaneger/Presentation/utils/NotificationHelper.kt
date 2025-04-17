@@ -14,6 +14,7 @@ import com.york_ruve.quickbitemaneger.R
 
 object NotificationHelper {
     const val CHANNEL_ID = "critical_ingredients_channel"
+    const val NOTIFICATION_ID = 1
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val Name = "Ingredientes criticos"
@@ -55,7 +56,7 @@ object NotificationHelper {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
         if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
             with(NotificationManagerCompat.from(context)) {
-                notify(1, builder.build())
+                notify(NOTIFICATION_ID, builder.build())
             }
         }
     }
