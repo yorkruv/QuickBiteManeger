@@ -109,6 +109,10 @@ class ordersViewModel @Inject constructor(
         }
     }
 
+    suspend fun loadDishWithQuantityAux(orderId: Int):List<dishWithQuantity>{
+            return getAllDishesWithQuantityUseCase(orderId)
+    }
+
     suspend fun loadDishWithQuantitySuspend(orderId: Int): List<dishWithQuantity> {
         val dishWithQuantity = getAllDishesWithQuantityUseCase(orderId)
         return dishWithQuantity

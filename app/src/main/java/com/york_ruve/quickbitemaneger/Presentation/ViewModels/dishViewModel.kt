@@ -102,6 +102,10 @@ class dishViewModel @Inject constructor(
         }
     }
 
+    suspend fun getIngredientsWithQuantityAux(dishId: Int): List<IngredientsWithQuantity> {
+        return getIngredientsWithQuantityUseCase(dishId)
+    }
+
     fun getIngredientsByDishId(dishId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val ingredients = getIngredientsByDishIdUseCase(dishId)

@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +45,7 @@ import com.york_ruve.quickbitemaneger.Presentation.utils.OnOrderDishClickListene
 import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.FragmentOrdersBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -199,39 +201,30 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
                 ordersViewModel.updateOrder(updatedOrder)
 
                 if (state == requireContext().getString(R.string.delivered)) {
-                    clientsViewModel.loadClientByName(orden.order.cliente)
-                    clientsViewModel.client.observe(viewLifecycleOwner) {
                         val sale = Sales(
                             null,
                             orden.order.orderId!!,
-                            it?.id,
+                            orden.order.cliente,
                             LocalDate.now().toString(),
                             orden.order.total
                         )
                         salesViewModel.addSale(sale)
-                    }
-                    clientsViewModel.client.removeObservers(viewLifecycleOwner)
-
-                    ordersViewModel.loadDishWithQuantity(orden.order.orderId!!)
-                    ordersViewModel.dishWithQuantity.observe(viewLifecycleOwner) {
-                        for (dish in it) {
-                            var i = 0
-                            while (i < dish.quantity) {
-                                dishViewModel.getIngredientsWithQuantity(dish.dish.dishId!!)
-                                i+=1
+                    lifecycleScope.launch {
+                        val DishWithQuantity = ordersViewModel.loadDishWithQuantityAux(orden.order.orderId)
+                        for (dish in DishWithQuantity) {
+                        var i = 0
+                        while (i < dish.quantity) {
+                            val ingredients = dishViewModel.getIngredientsWithQuantityAux(dish.dish.dishId!!)
+                            i+=1
+                            for (ingredient in ingredients) {
+                                ingredientViewModel.SubstractIngredientStock(
+                                    ingredient.ingredient.ingredientId!!,
+                                    ingredient.quantity
+                                )
                             }
                         }
                     }
-                    ordersViewModel.dishWithQuantity.removeObservers(viewLifecycleOwner)
-                    dishViewModel.IngredientsWithQuantity.observe(viewLifecycleOwner) {
-                        for (ingredient in it) {
-                            ingredientViewModel.SubstractIngredientStock(
-                                ingredient.ingredient.ingredientId!!,
-                                ingredient.quantity
-                            )
-                        }
                     }
-                    dishViewModel.IngredientsWithQuantity.removeObservers(viewLifecycleOwner)
 
                 }
                 ordersViewModel.getOrdersDish()
@@ -323,23 +316,26 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
         }
 
         btn_saveOrder.setOnClickListener {
-            var priceTotal = 0.0
-            ordersViewModel.loadDishWithQuantity(orden.order.orderId)
-            ordersViewModel.dishWithQuantity.observe(viewLifecycleOwner) {
-                for (dish in it) {
-                    priceTotal += dish.dish.precio * dish.quantity
-                }
-                val updatedOrder = Orders(
-                    id = orden.order.orderId,
-                    fecha = orden.order.fecha,
-                    cliente = autoComplateClient.text.toString(),
-                    estado = orden.order.estado,
-                    total = priceTotal
-                )
-                ordersViewModel.updateOrder(updatedOrder)
-                orderDialog.dismiss()
-                initRecyclerView()
+            lifecycleScope.launch {
+                var priceTotal = 0.0
+                val DishWithQuantity = ordersViewModel.loadDishWithQuantityAux(orden.order.orderId)
+
+                    for (dish in DishWithQuantity) {
+                        priceTotal += dish.dish.precio * dish.quantity
+                    }
+                    val updatedOrder = Orders(
+                        id = orden.order.orderId,
+                        fecha = orden.order.fecha,
+                        cliente = autoComplateClient.text.toString(),
+                        estado = orden.order.estado,
+                        total = priceTotal
+                    )
+                    ordersViewModel.updateOrder(updatedOrder)
+                    orderDialog.dismiss()
+                    initRecyclerView()
+
             }
+
         }
         orderDialog.show()
     }
