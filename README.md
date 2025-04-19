@@ -7,34 +7,40 @@ QuickBite Manager es una aplicación diseñada para dueños de restaurantes que 
 ---
 
 ## ✨ **Características Principales**  
-- 📋 **Gestión de Pedidos:** Organiza y controla pedidos de manera eficiente.  
-- 🍔 **Gestión del Menú:** Crea, edita y organiza los productos disponibles.  
-- 📦 **Inventario:** Supervisa y actualiza tu inventario en tiempo real.  
-- 📊 **Ventas:** Analiza tus ventas y genera reportes.  
-- 👥 **Registro de Clientes:** Lleva un control detallado de tus clientes frecuentes.  
+- 🧾 **Gestión de órdenes**: Creación, edición y seguimiento de pedidos con múltiples estados (pendiente, en preparación, listo, entregado, cancelado).
+- 🍳 **Control de platos e ingredientes**: Registra ingredientes, cantidades, unidades de medida y define platos relacionados.
+- 📉 **Inventario con alertas**: Visualiza el stock actual de cada ingrediente y recibe alertas cuando se alcanza el nivel crítico.
+- 📊 **Estadísticas de ventas**: Visualización por día, semana o total. Ranking de platos más vendidos.
+- 🌙 **Modo oscuro y multilenguaje**: Soporte para inglés y español, con cambio de tema en tiempo real.
+- 🔔 **Notificaciones automáticas**: Alertas programadas sobre ingredientes en estado crítico.
+- 💬 **Pantalla de ayuda**: FAQs expandibles para una mejor experiencia de usuario.
+---
+
+## 🧰 Tecnologías Utilizadas
+
+- **Lenguaje**: Kotlin
+- **Arquitectura**: MVVM + Clean Architecture
+- **Persistencia**: Room Database
+- **UI**: Material Design, XML, ConstraintLayout
+- **Gestión de dependencias**: Hilt
+- **Publicidad**: Google AdMob (anuncios de prueba implementados)
+- **Internacionalización**: Locales dinámicos con `SharedPreferences`
 
 ---
 
-## 🛠️ **Tecnologías y Arquitectura**  
-- **Lenguaje:** Kotlin  
-- **Arquitectura:** MVVM con Clean Architecture  
-- **Base de Datos Local:** Room (SQLite)  
-- **IDE:** Android Studio  
+## 🚀 Planes Futuros
 
-### 🔮 **Futuras Implementaciones**  
-Si la aplicación tiene buena recepción:  
-- ☁️ **Almacenamiento en la Nube:** Sincronización de datos en múltiples dispositivos.  
-- 🧑‍🤝‍🧑 **Cuentas y Roles:** Permite agregar trabajadores con diferentes niveles de acceso.  
-
+- ☁️ Almacenamiento en la nube (Firebase)
+- 👥 Multiusuario con roles para trabajadores
+- 📦 Backups automáticos
+- 📤 Exportación de datos
+  
 ---
 
-## 🚀 **Estado del Proyecto**  
-Actualmente en desarrollo (20% completado).  
 
-Próximos pasos:  
-1. Completar la funcionalidad del inventario.  
-2. Completar el diseño de la UI.  
-3. Completar la funcionalidad de pedidos.  
+## 🎯 Objetivo
+
+Crear una aplicación intuitiva y funcional que permita a los restaurantes llevar el control completo de su operación, desde la cocina hasta el análisis de ventas, sin necesidad de infraestructura externa.
 
 ---
 
@@ -45,11 +51,14 @@ Próximos pasos:
 
 ---
 
-## 🎨 **Vista Previa (en desarrollo)**  
+## 📸 Capturas de pantalla 
 
-![Dashboard](https://github.com/user-attachments/assets/0decae6f-9d22-4802-8641-92f033ff0232)
-
-
+![Dashboard](https://github.com/user-attachments/assets/b07e02a4-d608-446a-89fe-074365e30f2b)
+![Ordenes](https://github.com/user-attachments/assets/63ef59a7-7f83-4cfa-9385-07002504bdf1)
+![Ingredientes](https://github.com/user-attachments/assets/da18511c-b6e2-4862-bb66-969ab69bef9b)
+![Ventas](https://github.com/user-attachments/assets/92881063-41f0-450a-ad93-9da1e1349a9b)
+![Platos](https://github.com/user-attachments/assets/697fde2d-778c-4d88-8710-5ac261a5aacd)
+![Notificaciones](https://github.com/user-attachments/assets/5e73a22f-7fd5-4c90-b522-28c8c2132d61)
 
 ---
 
