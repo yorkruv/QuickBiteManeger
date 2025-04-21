@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.york_ruve.quickbitemaneger.Data.Entities.DishIngredient
 import com.york_ruve.quickbitemaneger.Data.Relations.DishWithIngredients
@@ -25,6 +26,7 @@ import com.york_ruve.quickbitemaneger.databinding.DialogAddingredientBinding
 import com.york_ruve.quickbitemaneger.databinding.DialogEditDishBinding
 import com.york_ruve.quickbitemaneger.databinding.FragmentMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MenuFragment : Fragment(), OnDishClickListener, OnDishIngredientsClickListener,
@@ -50,10 +52,16 @@ class MenuFragment : Fragment(), OnDishClickListener, OnDishIngredientsClickList
 
     private fun setlistener() {
         binding.btnAddDish.setOnClickListener {
-            val dish = Dish(null, "", "", 0.0)
-            dishViewModel.insertDish(dish)
-            dishViewModel.getAllDishesWithIngredients()
-            Toast.makeText(requireContext(), getString(R.string.ins_dishes), Toast.LENGTH_SHORT).show()
+            viewLifecycleOwner.lifecycleScope.launch {
+                val dish = Dish(null, "", "", 0.0)
+                val id = dishViewModel.insertDish(dish)
+                val dishWithIngredients = dishViewModel.getIngredientsByDishId(id.toInt())
+                onEditDishClick(dishWithIngredients!!)
+                dishViewModel.getAllDishesWithIngredients()
+                Toast.makeText(requireContext(), getString(R.string.ins_dishes), Toast.LENGTH_SHORT)
+                    .show()
+            }
+
         }
     }
 
@@ -85,15 +93,17 @@ class MenuFragment : Fragment(), OnDishClickListener, OnDishIngredientsClickList
             dialog.dismiss()
         }
         binding.btnSaveDish.setOnClickListener {
-            val dishUpdate = Dish(
-                dish.dish.dishId,
-                binding.etName.text.toString(),
-                dish.dish.descripcion,
-                binding.etPrice.text.toString().toDouble()
-            )
-            dishViewModel.insertDish(dishUpdate)
-            dishViewModel.getAllDishesWithIngredients()
-            dialog.dismiss()
+            viewLifecycleOwner.lifecycleScope.launch {
+                val dishUpdate = Dish(
+                    dish.dish.dishId,
+                    binding.etName.text.toString(),
+                    dish.dish.descripcion,
+                    binding.etPrice.text.toString().toDouble()
+                )
+                dishViewModel.insertDish(dishUpdate)
+                dishViewModel.getAllDishesWithIngredients()
+                dialog.dismiss()
+            }
         }
         dialog.show()
     }
