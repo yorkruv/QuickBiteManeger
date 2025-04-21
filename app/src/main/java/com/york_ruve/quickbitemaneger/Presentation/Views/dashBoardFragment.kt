@@ -154,7 +154,7 @@ class dashBoardFragment : Fragment() {
         }
         salesViewModel.totalSalesData.observe(viewLifecycleOwner) {
             val orderstx = getString(R.string.nav_orders)
-            binding.tvTotalSales.text = "$${it.totalSalesAmount} "
+            binding.tvTotalSales.text = "$${String.format("%.2f",it.totalSalesAmount)}"
             binding.tvTotalOrders.text = "${it.totalSalesCount} ${orderstx}"
         }
         salesViewModel.salesToDay.observe(viewLifecycleOwner) {
