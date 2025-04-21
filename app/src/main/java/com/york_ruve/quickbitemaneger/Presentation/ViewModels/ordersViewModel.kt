@@ -88,29 +88,23 @@ class ordersViewModel @Inject constructor(
 
     }
 
-    fun loadOrderById(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val order = getOrdersByIdUseCase(id)
-            _order.postValue(order)
-        }
+    suspend fun loadOrderById(id: Int): Orders {
+        return getOrdersByIdUseCase(id)
     }
 
-    fun loadOrderDishById(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val orderDish = getOrdersWithDishesById(id)
-            _orderDishById.postValue(orderDish)
-        }
+    suspend fun loadOrderDishById(id: Int) : orderWithDishes {
+            return getOrdersWithDishesById(id)
     }
 
-    fun loadDishWithQuantity(orderId: Int){
+    fun loadDishWithQuantity(orderId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val dishWithQuantity = getAllDishesWithQuantityUseCase(orderId)
             _dishWithQuantity.postValue(dishWithQuantity)
         }
     }
 
-    suspend fun loadDishWithQuantityAux(orderId: Int):List<dishWithQuantity>{
-            return getAllDishesWithQuantityUseCase(orderId)
+    suspend fun loadDishWithQuantityAux(orderId: Int): List<dishWithQuantity> {
+        return getAllDishesWithQuantityUseCase(orderId)
     }
 
     suspend fun loadDishWithQuantitySuspend(orderId: Int): List<dishWithQuantity> {
@@ -118,11 +112,10 @@ class ordersViewModel @Inject constructor(
         return dishWithQuantity
     }
 
-    fun addOrder(order: Orders) {
-        viewModelScope.launch(Dispatchers.IO) {
-            insertOrderUseCase(order)
-            loadOrders()
-        }
+    suspend fun addOrder(order: Orders): Long {
+        val id = insertOrderUseCase(order)
+        loadOrders()
+        return id
     }
 
     fun addOrderDish(orderDish: OrdersDish) {

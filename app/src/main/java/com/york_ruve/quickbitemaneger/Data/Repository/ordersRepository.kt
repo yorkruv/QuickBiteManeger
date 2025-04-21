@@ -39,10 +39,10 @@ class ordersRepository @Inject constructor(private val ordersDao: ordersDao) : I
     }
 
 
-    override suspend fun insertOrders(orders: Orders) {
+    override suspend fun insertOrders(orders: Orders):Long {
         val ordersEntity =
             ordersEntity(orders.id, orders.fecha, orders.cliente, orders.estado, orders.total)
-        ordersDao.insertOrder(ordersEntity)
+        return ordersDao.insertOrder(ordersEntity)
     }
 
     override suspend fun updateOrders(orders: Orders) {

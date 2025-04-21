@@ -11,7 +11,7 @@ interface IOrdersRepository {
     suspend fun getOrderById(id: Int): Orders
     suspend fun getOrdersWithDishesById(id: Int): orderWithDishes
     suspend fun getOrdersByState(state: String): List<orderWithDishes>
-    suspend fun insertOrders(orders: Orders)
+    suspend fun insertOrders(orders: Orders): Long
     suspend fun updateOrders(orders: Orders)
     suspend fun deleteOrders(orders: Orders)
 }

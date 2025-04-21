@@ -134,14 +134,21 @@ class OrdersFragment : Fragment(), OnOrderClickListener, OnOrderDishClickListene
         }
 
         binding.flbAddOrder.setOnClickListener {
-            val orden = Orders(
+            viewLifecycleOwner.lifecycleScope.launch {
+                val orden = Orders(
                 null,
                 LocalDateTime.now().toString(),
                 requireContext().getString(R.string.ins_orders),
                 requireContext().getString(R.string.pending),
                 0.0
             )
-            ordersViewModel.addOrder(orden)
+
+
+                val id = ordersViewModel.addOrder(orden)
+                val ordenCreada = ordersViewModel.loadOrderDishById(id.toInt())
+                showOrderDialog(ordenCreada)
+            }
+
             ordersViewModel.loadOrders()
             ordersViewModel.orders.observe(viewLifecycleOwner) {
                 initRecyclerView()
