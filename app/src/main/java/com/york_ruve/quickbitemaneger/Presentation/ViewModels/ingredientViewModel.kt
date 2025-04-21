@@ -43,11 +43,10 @@ class ingredientViewModel @Inject constructor(
     private val _ingredient = MutableLiveData<Ingredients>()
     val ingredient: LiveData<Ingredients> = _ingredient
 
-    fun insertIngredient(ingredients: Ingredients) {
-        viewModelScope.launch {
-            insertIngredientUseCase(ingredients)
-            getAllIngredients()
-        }
+    suspend fun insertIngredient(ingredients: Ingredients): Long {
+        val id = insertIngredientUseCase(ingredients)
+        getAllIngredients()
+        return id
     }
 
     fun getAllIngredients() {
@@ -80,13 +79,9 @@ class ingredientViewModel @Inject constructor(
         }
     }
 
-    fun getIngredientById(ingredientId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val ingredient = getIngredientByIdUseCase(ingredientId)
-            withContext(Dispatchers.Main) {
-                _ingredient.value = ingredient
-            }
-        }
+    suspend fun getIngredientById(ingredientId: Int): Ingredients {
+        val ingredient = getIngredientByIdUseCase(ingredientId)
+        return ingredient
     }
 
     fun updateIngredient(ingredient: Ingredients) {
@@ -103,7 +98,7 @@ class ingredientViewModel @Inject constructor(
         }
     }
 
-    suspend fun getCriticalIngredients(): List<Ingredients>{
+    suspend fun getCriticalIngredients(): List<Ingredients> {
         return getCriticalIngredientsUseCase()
     }
 }

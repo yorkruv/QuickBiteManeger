@@ -35,7 +35,7 @@
     <string name="address">Direccion</string>
     <string name="info_table">Para agregar mas mesas, vaya a opciones.</string>
     <string name="ordered_dishes">Platos de la orden</string>
-    <string name="add_dish">Añadir plato</string>
+    <string name="add_dish">Añadir</string>
     <string name="quantity">Cantidad</string>
     <string name="restaurant_menu">Menu del restaurante</string>
     <string name="save_order">Guardar orden</string>

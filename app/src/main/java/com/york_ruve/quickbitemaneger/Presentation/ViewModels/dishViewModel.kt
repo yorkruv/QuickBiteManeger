@@ -59,13 +59,11 @@ class dishViewModel @Inject constructor(
         }
     }
 
-    fun insertDish(dish: Dish) {
-        viewModelScope.launch(Dispatchers.IO) {
+    suspend fun insertDish(dish: Dish):Long {
             val id = insertDishUseCase(dish)
             loadDishes()
             getAllDishesWithIngredients()
-            _newId.postValue(id)
-        }
+            return id
     }
 
     fun insertDishIngredients(dish: DishIngredient) {
@@ -106,13 +104,8 @@ class dishViewModel @Inject constructor(
         return getIngredientsWithQuantityUseCase(dishId)
     }
 
-    fun getIngredientsByDishId(dishId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val ingredients = getIngredientsByDishIdUseCase(dishId)
-            withContext(Dispatchers.Main) {
-                _IngredientsByDishId.value = ingredients
-            }
-        }
+    suspend fun getIngredientsByDishId(dishId: Int): DishWithIngredients? {
+            return getIngredientsByDishIdUseCase(dishId)
     }
 
     fun deleteDish(dish: Dish) {

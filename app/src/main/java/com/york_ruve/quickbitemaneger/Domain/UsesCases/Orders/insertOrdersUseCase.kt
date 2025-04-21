@@ -5,7 +5,7 @@ import com.york_ruve.quickbitemaneger.Domain.Repository.IOrdersRepository
 import javax.inject.Inject
 
 class insertOrdersUseCase @Inject constructor(private val ordersRepository: IOrdersRepository) {
-    suspend operator fun invoke(orders: Orders) {
-        ordersRepository.insertOrders(orders)
+    suspend operator fun invoke(orders: Orders):Long {
+        return ordersRepository.insertOrders(orders)
     }
 }

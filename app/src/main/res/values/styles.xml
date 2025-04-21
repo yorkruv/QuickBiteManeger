@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.QuickBiteManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="android:windowBackground">@color/white</item>
 

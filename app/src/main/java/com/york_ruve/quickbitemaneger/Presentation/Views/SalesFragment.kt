@@ -70,7 +70,7 @@ class SalesFragment : Fragment() {
 
     private fun viewObserver() {
         salesViewModel.amountToDay.observe(viewLifecycleOwner) {
-            binding.tvTotalSoldToday.text = it.toString()
+            binding.tvTotalSoldToday.text = String.format("%.2f", it)
         }
         salesViewModel.salesToDay.observe(viewLifecycleOwner) {
             binding.tvSalesDay.text = it.toString()

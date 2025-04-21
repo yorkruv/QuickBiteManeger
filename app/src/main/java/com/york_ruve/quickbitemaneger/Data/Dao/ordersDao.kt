@@ -35,14 +35,14 @@ interface ordersDao {
 
     @Transaction
     @Query("SELECT * FROM Orders WHERE orderId = :id")
-    fun getOrdersWithDishesById(id: Int): orderWithDishes
+    suspend fun getOrdersWithDishesById(id: Int): orderWithDishes
 
     @Transaction
     @Query("SELECT * FROM Orders WHERE estado = :state")
     fun getOrdersByState(state: String): List<orderWithDishes>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrder(order: ordersEntity)
+    suspend fun insertOrder(order: ordersEntity):Long
 
     @Update
     fun updateOrder(order: ordersEntity)
