@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.QuickBiteManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/white</item>
 
     </style>
