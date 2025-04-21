@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.ui.window.Dialog
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.york_ruve.quickbitemaneger.Domain.Model.Ingredients
 import com.york_ruve.quickbitemaneger.Presentation.ViewModels.ingredientAdapter
@@ -18,6 +19,7 @@ import com.york_ruve.quickbitemaneger.R
 import com.york_ruve.quickbitemaneger.databinding.DialogEditIngredientBinding
 import com.york_ruve.quickbitemaneger.databinding.FragmentInventoryBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class InventoryFragment : Fragment(), OnIngredientClickListener {
@@ -42,9 +44,13 @@ class InventoryFragment : Fragment(), OnIngredientClickListener {
 
     private fun setListeners() {
         binding.btnAddIngredient.setOnClickListener {
-            val ingredient = Ingredients(null, "", 0.0, "", 0.0)
-            inventoryViewModel.insertIngredient(ingredient)
-            Toast.makeText(requireContext(), getString(R.string.ins_ingredients), Toast.LENGTH_SHORT).show()
+            viewLifecycleOwner.lifecycleScope.launch {
+                val ingredient = Ingredients(null, "", 0.0, "", 0.0)
+                val id = inventoryViewModel.insertIngredient(ingredient)
+                val ingredienteCreado = inventoryViewModel.getIngredientById(id.toInt())
+                onEditIngredientClick(ingredienteCreado)
+                Toast.makeText(requireContext(), getString(R.string.ins_ingredients), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

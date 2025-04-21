@@ -35,9 +35,9 @@ class ingredientsRepository @Inject constructor(private val ingredientsDao: ingr
         }
     }
 
-    override suspend fun insertIngredient(ingredient: Ingredients) {
+    override suspend fun insertIngredient(ingredient: Ingredients):Long {
         val Entity = ingredientEntity(ingredient.id,ingredient.name,ingredient.stock,ingredient.unit,ingredient.criticalQuantity)
-        ingredientsDao.insertIngredient(Entity)
+        return ingredientsDao.insertIngredient(Entity)
     }
 
     override suspend fun getIngredientById(ingredientId: Int): Ingredients {

@@ -20,7 +20,7 @@ interface ingredientsDao {
     suspend fun getCriticalIngredients(): List<ingredientEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertIngredient(ingredient: ingredientEntity)
+    suspend fun insertIngredient(ingredient: ingredientEntity):Long
 
     @Query("Select * from ingredients where ingredientId = :ingredientId")
     suspend fun getIngredientById(ingredientId: Int): ingredientEntity
