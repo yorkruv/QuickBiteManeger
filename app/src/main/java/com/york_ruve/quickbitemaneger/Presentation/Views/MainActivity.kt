@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         loadFragment(dashBoardFragment())
         setListeners()
         setNightMode()
-        applyLanguage()
         Permissions()
         scheduleDailyNotification()
         lifecycleScope.launch {
@@ -92,14 +92,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyLanguage() {
-        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
-        val lenguage = sharedPreferences.getString("language", "en")
-        val config = resources.configuration
-        val locale = Locale(lenguage)
+    override fun attachBaseContext(newBase: Context) {
+        val sharedPreferences = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val language = sharedPreferences.getString("language", "en") ?: "en"
+        val locale = Locale(language)
         Locale.setDefault(locale)
+
+        val config = Configuration()
         config.setLocale(locale)
-        applicationContext.createConfigurationContext(config)
+
+        val context = newBase.createConfigurationContext(config)
+        super.attachBaseContext(context)
     }
 
     private fun setNightMode() {
