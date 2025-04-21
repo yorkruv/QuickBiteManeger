@@ -14,6 +14,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.appopen.AppOpenAd
+import com.york_ruve.quickbitemaneger.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,11 +23,10 @@ import java.util.Date
 import kotlin.coroutines.coroutineContext
 
 private const val LOG_TAG = "AppOpenAdManager"
-private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/9257395921"
+const val AD_UNIT_ID = BuildConfig.AD_UNIT_ID
 
 @HiltAndroidApp
 class MyApplication : Application(), Application.ActivityLifecycleCallbacks, DefaultLifecycleObserver {
-
     private lateinit var appOpenAdManager: AppOpenAdManager
     private var currentActivity: Activity? = null
 
